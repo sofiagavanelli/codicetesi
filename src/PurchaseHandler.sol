@@ -9,7 +9,7 @@ import "./InsuranceProvider.sol";
 contract PurchaseHandler is Shared {
     
     mapping(uint => address) providers; //ok??
-    uint n_provider; //ok??
+    uint n_providers; //ok??
     mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
     mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
 
@@ -20,15 +20,15 @@ contract PurchaseHandler is Shared {
 
 
     //input di _pool: ["0x---","0x---"] --> se in array allora gli address usano ""!!!
-    constructor(/*address _controllerAddr,*/ address[] memory _prov, uint n_prov) {
+    constructor(/*address _controllerAddr,*/ address[] memory _prov /*, uint n_prov*/) {
         //address[] memory _pool) {
 
         //CONTROLLER OUT
         //controlData = Controller(_controllerAddr);
 
-        n_provider = n_prov;
+        n_providers = _prov.length;
 
-        for(uint i=0; i<n_prov; i++) {
+        for(uint i=0; i<n_providers; i++) {
 
             //providers[i].push(_prov[i]);
             providers[i] = _prov[i];

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+import "hardhat/console.sol";
+
 import "./Shared.sol";
 
 contract InsuranceProvider is Shared {
@@ -18,6 +20,8 @@ contract InsuranceProvider is Shared {
     }
 
     function getInsurance(uint retrieve_index) public view returns (InsuranceItem memory) { //non serve address provider, perché siamo dentro questo
+
+        console.log('siam qua %d', retrieve_index);
         return insurances[retrieve_index];
     } //al singolare?
 
