@@ -1,29 +1,9 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
 
-pragma solidity >=0.7.0 <0.9.0;
-
-//import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 import "./PurchaseHandler.sol";
-
-/**SOLIDITY info:
-    ADDRESS PUBLIC minter
-The line address public minter; declares a state variable of type address. The address type is a 160-bit value 
-that does not allow any arithmetic operations. 
-    MAPPING (type => type)
-The next line, mapping (address => uint) public balances; also creates a public state variable, but it is a more 
-complex datatype. The mapping type maps addresses to unsigned integers.
-Mappings can be seen as hash tables which are virtually initialised such that every possible key exists from the 
-start and is mapped to a value whose byte-representation is all zeros. However, it is neither possible to obtain 
-a list of all keys of a mapping, nor a list of all values. Record what you added to the mapping, or use it in a 
-context where this is not needed. Or even better, keep a list, or use a more suitable data type.
-    CONSTRUCTOR
-The constructor is a special function that is executed during the creation of the contract and cannot be called 
-afterwards. 
-    COMMON THINGS
-The msg variable (together with tx and block) is a special global variable that contains properties which allow 
-access to the blockchain. msg.sender is always the address where the current (external) function call came from.
-The functions that make up the contract, and that users and contracts can call are mint and send.*/
 
 /**
  * @title Client
@@ -78,10 +58,6 @@ contract Client is Shared {
             //non ha superato il controllo!!
         }
 
-        /*if(prova != 0)
-            return prova;
-        else
-            console.log('non ci sono insurance con queste caratteristiche e questo prezzo');*/
         return prova;
 
     }

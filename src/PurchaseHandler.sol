@@ -1,19 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+import "hardhat/console.sol";
+
 import "./Shared.sol";
+import "./InsuranceProvider.sol";
 
 contract PurchaseHandler is Shared {
     
-    mapping(uint => address) providers;
-    uint n_provider; //??
+    mapping(uint => address) providers; //ok??
+    uint n_provider; //ok??
     mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
-    mapping(address => uint) n_insurance_items; //address teoricamente del provider
+    mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
 
     /****************vecchie cose */
     uint max_time; //è un input o una costante?
     clientInfo public currentClient;
-    /*************************** */
+    /**************************** */
 
 
     //input di _pool: ["0x---","0x---"] --> se in array allora gli address usano ""!!!
@@ -23,8 +26,17 @@ contract PurchaseHandler is Shared {
         //CONTROLLER OUT
         //controlData = Controller(_controllerAddr);
 
-        for(uint i=0; i<n_prov; i++)
+        n_provider = n_prov;
+
+        for(uint i=0; i<n_prov; i++) {
+
+            //providers[i].push(_prov[i]);
             providers[i] = _prov[i];
+
+            //n_insurance_items[_prov[i]].push(InsuranceProvider(_prov[i]).getIndex());
+            n_insurance_items[_prov[i]]= InsuranceProvider(_prov[i]).getIndex();
+
+        }
 
     }
 
@@ -50,74 +62,20 @@ contract PurchaseHandler is Shared {
             return feedback;
             
         //}
-        /*else{
-            give bad feedback perché il controllo è andato male
-            feedback = false;
-            return feedback;
-        }*/
 
     }
 
-    function giveInsurance() public returns (InsuranceItem){
+    function giveInsurance() public returns (InsuranceItem memory) {
 
-        //InsuranceItem winner;
-        //winner = confrontInsurance();
-
-        console.log("sono prima di obtain");
-        obtainInsurances();
-        console.log("sono dopo obtain");
-
-        uint i = 3;
-
-        /*uint price;
-        uint len;
-        len = proof.length;*/
-
-        InsuranceItem item;
-
-
-        return item;
+        return (InsuranceProvider(providers[0]).getInsurance(0));
 
     }
 
     function obtainInsurances() public view {
 
-        uint len;
-        len = providers.length;
+        //bisogna creare il mapping:
+        //mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
 
-        //address[]  temp;
-
-        InsuranceProvider item;
-        
-
-        //mapping(uint => address) storage insurances;
-
-        address[] memory ins;
-
-        uint i=1;
-        uint k=0;
-
-        while(i<len) {
-
-            item = InsuranceProvider(providers[i]);
-
-            ins = item.getInsurances();
-            uint l;
-            l = ins.length;
-
-            for(uint j=1; j<l; j++) {
-
-                console.log("sono qui");
-
-                insurances[j+k] = ins[j];
-
-            }
-
-            k = k + l;
-
-            console.log("sono fuori");
-
-        }
 
     }
     

@@ -13,9 +13,21 @@ contract InsuranceProvider is Shared {
     
     mapping(uint => InsuranceItem) insurances; //assicurazioni indicizzate
 
+    constructor (string memory nP) {
+        nameP = nP;
+    }
+
     function getInsurance(uint retrieve_index) public view returns (InsuranceItem memory) { //non serve address provider, perché siamo dentro questo
         return insurances[retrieve_index];
     } //al singolare?
+
+    function getIndex() public view returns (uint) {
+        return insurance_index;
+    }
+
+    /*function getPortfolio() public view returns (mapping(uint => InsuranceItem) memory) {
+        return insurances;
+    }*/
 
     function setInsurance(/*string memory n,*/ Type t, uint256 p) public {
         //add al mapping
