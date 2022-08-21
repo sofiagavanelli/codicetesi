@@ -9,9 +9,21 @@ abstract contract Shared {
 
     struct InsuranceItem {
         string provider;
-        string name;
+        string id; //l'assicurazione ha un nome?
         Type insurance_type;
         uint256 price;
+    }
+
+    /****************** */
+    struct clientInfo{
+        string name;
+        string id;
+        //bool gender;
+        uint birth;
+        string discount_n;
+        uint max_purchase;
+
+        string clIBAN;
     }
     
 
