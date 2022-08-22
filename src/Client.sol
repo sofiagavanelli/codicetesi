@@ -25,14 +25,16 @@ contract Client is Shared {
     PurchaseHandler handler;
 
     //costruttore per creare un cliente 
-    constructor (string memory _name, string memory _id, bool _gender, uint _birth, string memory _discount, uint _maxpurchase,
+    constructor (string memory _name, string memory _id, bool _gender, uint _birth, string memory _discount, uint _maxpurchase, Type _t, 
         string memory _iban, address _handlerAddr) {
         name = _name;
         id = _id;
         gender = _gender;
         birth = _birth;
         discount_n = _discount;
-        max_purchase = _maxpurchase;
+
+        insurance.t = _t;
+        insurance.maxp = _maxpurchase;
 
         clientIBAN = _iban;
 

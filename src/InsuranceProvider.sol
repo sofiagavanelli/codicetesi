@@ -29,11 +29,11 @@ contract InsuranceProvider is Shared {
         return insurance_index;
     }
 
-    /*function getPortfolio() public view returns (mapping(uint => InsuranceItem) memory) {
+    /*function getPortfolio() public view returns (InsuranceItem[] memory) {
         return insurances;
     }*/
 
-    function setInsurance(/*string memory n,*/ Type t, uint256 p) public {
+    function setInsurance(/*string memory n,*/ Type t, uint8 p) public {
         //add al mapping
 
         InsuranceItem memory newInsurance = InsuranceItem({

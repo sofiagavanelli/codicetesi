@@ -13,6 +13,11 @@ abstract contract Shared {
         Type insurance_type;
         uint256 price;
     }
+    
+    struct Request {
+        Type t;
+        uint256 maxp;
+    }
 
     /****************** */
     struct clientInfo{
@@ -22,7 +27,7 @@ abstract contract Shared {
         uint birth;
         string discount_n;
         uint max_purchase;
-
+        
         string clIBAN;
     }
     

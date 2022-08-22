@@ -10,18 +10,23 @@ contract PurchaseHandler is Shared {
     
     mapping(uint => address) providers; //ok??
     uint n_providers; //ok??
+    /*troppo pesante da gestire
     mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
-    mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
+    mapping(uint => InsuranceItem) insurances; // ma address del provider?*/
+    //mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
+
+    event AskForInsurance(Request r);
 
     /****************vecchie cose */
     uint max_time; //è un input o una costante?
     clientInfo public currentClient;
     /**************************** */
 
+    Request public currentRequest;
+
 
     //input di _pool: ["0x---","0x---"] --> se in array allora gli address usano ""!!!
     constructor(/*address _controllerAddr,*/ address[] memory _prov /*, uint n_prov*/) {
-        //address[] memory _pool) {
 
         //CONTROLLER OUT
         //controlData = Controller(_controllerAddr);
@@ -34,7 +39,7 @@ contract PurchaseHandler is Shared {
             providers[i] = _prov[i];
 
             //n_insurance_items[_prov[i]].push(InsuranceProvider(_prov[i]).getIndex());
-            n_insurance_items[_prov[i]]= InsuranceProvider(_prov[i]).getIndex();
+            //n_insurance_items[_prov[i]]= InsuranceProvider(_prov[i]).getIndex();
 
         }
 
@@ -42,12 +47,13 @@ contract PurchaseHandler is Shared {
 
 
     //quando funzionerà il client allora verrà creato l'handler e chiamato da qui
-    function takeClient(string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, 
+    function takeClient(string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
         string memory _cIban) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
 
         bool feedback;
 
         currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, _cMaxp, _cIban);
+        currentRequest = Request(_t, _cMaxp);
 
         console.log('riga 62 handler');
 
@@ -55,11 +61,11 @@ contract PurchaseHandler is Shared {
         //if(controlData.controlInfo(currentClient)) {
         //if(this.controlClient()) {
 
-            feedback = true;
+        feedback = true;
 
-            console.log('feedback %d', feedback);
+        console.log('feedback %d', feedback);
 
-            return feedback;
+        return feedback;
             
         //}
 
@@ -71,11 +77,29 @@ contract PurchaseHandler is Shared {
 
     }
 
-    function obtainInsurances() public view {
+    function obtainInsurances() public {
 
         //bisogna creare il mapping:
         //mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
 
+        //return n_insurance_items[providers[0]];
+
+        /*uint j=0;
+        uint k=0;
+
+        while (j<n_providers) {
+
+            InsuranceItem[] memory temp;
+            temp = InsuranceProvider(providers[j]).getPortfolio();
+
+            for(uint i=0; i<n_insurance_items[providers[j]]; i++) {
+                insurances[k] = temp[i];
+                k++;
+            }
+            
+        }*/
+
+        emit AskForInsurance(currentRequest);
 
     }
     
