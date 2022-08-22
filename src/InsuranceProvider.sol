@@ -11,7 +11,7 @@ contract InsuranceProvider is Shared {
 
     uint insurance_index = 0;
 
-    string random; //generatore di id?
+    string random = "ok"; //generatore di id?
     
     mapping(uint => InsuranceItem) insurances; //assicurazioni indicizzate
 
@@ -27,6 +27,29 @@ contract InsuranceProvider is Shared {
 
     function getIndex() public view returns (uint) {
         return insurance_index;
+    }
+
+    function getRequest(Request memory r) public returns (InsuranceItem memory) {
+
+        InsuranceItem memory winner;
+
+        winner.price = r.maxp;
+
+        for(uint i=0; i<insurance_index; i++) {
+            
+            if(insurances[i].insurance_type == r.t && insurances[i].price <= winner.price) {
+
+                winner = insurances[i];
+
+            }
+
+        }
+
+        return winner;
+
+        /*else
+            return err;*/ //non c'è un insurance item
+
     }
 
     /*function getPortfolio() public view returns (InsuranceItem[] memory) {

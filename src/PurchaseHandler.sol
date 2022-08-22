@@ -11,11 +11,11 @@ contract PurchaseHandler is Shared {
     mapping(uint => address) providers; //ok??
     uint n_providers; //ok??
     /*troppo pesante da gestire
-    mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
-    mapping(uint => InsuranceItem) insurances; // ma address del provider?*/
+    mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider? */
+    mapping(uint => InsuranceItem) insurances; // ma address del provider?
     //mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
 
-    event AskForInsurance(Request r);
+    //event AskForInsurance(Request r);
 
     /****************vecchie cose */
     uint max_time; //è un input o una costante?
@@ -84,22 +84,21 @@ contract PurchaseHandler is Shared {
 
         //return n_insurance_items[providers[0]];
 
-        /*uint j=0;
-        uint k=0;
+        uint j=0;
+        uint i=0;
 
         while (j<n_providers) {
-
-            InsuranceItem[] memory temp;
-            temp = InsuranceProvider(providers[j]).getPortfolio();
-
-            for(uint i=0; i<n_insurance_items[providers[j]]; i++) {
-                insurances[k] = temp[i];
-                k++;
-            }
             
-        }*/
+            insurances[i] = InsuranceProvider(providers[j]).getRequest(currentRequest);
 
-        emit AskForInsurance(currentRequest);
+            console.log('%d', insurances[i].price);
+
+            i++;
+            j++;
+            
+        }
+
+        //emit AskForInsurance(currentRequest);
 
     }
     
