@@ -15,9 +15,19 @@ abstract contract Shared {
     }
     
     struct Request {
+
+        address client;
+
         Type t;
         uint256 maxp;
     }
+
+    /*si usa sempre un insuranceitem
+    struct Proposal {
+        Type t;
+        uint256 price;
+        string provider;
+    }*/
 
     /****************** */
     struct clientInfo{
@@ -30,6 +40,11 @@ abstract contract Shared {
         
         string clIBAN;
     }
+
+    /*********funzione per generare un id */
+    /*function generate_id() {
+
+    }*/
     
 
 }
