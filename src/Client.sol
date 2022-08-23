@@ -17,7 +17,10 @@ contract Client is Shared {
     bool gender;
     uint256 birth;
     string discount_n;
-    uint max_purchase;
+
+    //uint max_purchase;
+    Request insurance;
+
     /* come mantenere le richieste? */
     
     string clientIBAN;
@@ -33,6 +36,7 @@ contract Client is Shared {
         birth = _birth;
         discount_n = _discount;
 
+        insurance.client = address(this);
         insurance.t = _t;
         insurance.maxp = _maxpurchase;
 
@@ -44,16 +48,17 @@ contract Client is Shared {
     //ma in caso di errore come fa a fare il return di un insuranceitem?? bool?
     
 
-    function requestInsurance() public returns (InsuranceItem) {
+    function requestInsurance() public returns (InsuranceItem memory) {
 
-        InsuranceItem prova;
+        InsuranceItem memory prova;
 
-        //ma fare solo handler.giveInsurance e poi fa handler?        
-        if(handler.takeClient(name, id, birth, discount_n, max_purchase, clientIBAN)) {
+        //ma fare solo handler.giveInsurance e poi fa handler?
+        //INPUT: (address client, _cName, _cId, _cBirth, _cDiscount, _cMaxp, Type _t, _cIban)         
+        if(handler.takeClient(address(this), name, id, birth, discount_n, insurance.maxp, insurance.t, clientIBAN)) {
 
             //ha superato il controllo
             console.log('di nuovo in client');
-            prova = handler.giveInsurance();
+            //prova = handler.giveInsurance();
 
         }
         else{
@@ -61,6 +66,12 @@ contract Client is Shared {
         }
 
         return prova;
+
+    }
+
+    function getPendingInsurance() public {
+
+        handler.getRequests(address(this));
 
     }
 

@@ -29,21 +29,24 @@ abstract contract Shared {
         string provider;
     }*/
 
-    /****************** */
+    /******************clientInfo(name, id, bday, discount, pending, iban) */
     struct clientInfo{
+
         string name;
-        string id;
+        string id; //si può togliere no?
         //bool gender;
         uint birth;
         string discount_n;
-        uint max_purchase;
+
+        uint pending;
+        
+        //da decidere se mettere una request qui
         
         string clIBAN;
     }
 
-    /*********funzione per generare un id */
+    /*********funzione per generare un id per le requests */
     /*function generate_id() {
-
     }*/
     
 

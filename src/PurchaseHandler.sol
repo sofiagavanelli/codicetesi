@@ -20,8 +20,10 @@ contract PurchaseHandler is Shared {
     //string = ID REQUEST
     mapping(string => InsuranceItem) proposals;
 
+    //string = ID CLIENTE (address?) => (int => ID REQUEST))
+    mapping(address => mapping(uint => string)) pending_affairs;
     //string = ID CLIENTE
-    //mapping(string => InsuranceItem) pending_affairs;
+    mapping(address => clientInfo) clients;
 
     //mapping(string => mapping(string => Proposal)) pending; 
     // pending_insurances) buying_queue;
@@ -29,7 +31,7 @@ contract PurchaseHandler is Shared {
     //event AskForInsurance(Request r);
 
     //id delle request
-    string generator;
+    string generator = "prova";
 
     /****************vecchie cose */
     uint max_time; //è un input o una costante?
@@ -76,33 +78,50 @@ contract PurchaseHandler is Shared {
     }
 
     //quando funzionerà il client allora verrà creato l'handler e chiamato da qui
-    function takeClient(string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
+    function takeClient(address client, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
         string memory _cIban) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
 
         bool feedback;
 
-        currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, _cMaxp, _cIban);
-        currentRequest = Request(_t, _cMaxp);
+        //clientInfo(name, id, bday, discount, pending, iban) 
+        currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, 1, _cIban);
+        currentRequest = Request(client, _t, _cMaxp);
 
         //aggiunta nuova richiesta al mapping
         indexed_requests[generator] = currentRequest;
         id_currentReq = generator;
 
+        pending_affairs[client][1] = generator;
+
         //console.log('riga 62 handler');
         feedback = true;
+
         //console.log('feedback %d', feedback);
 
         return feedback;
 
     }
 
-    function giveInsurance() public returns (InsuranceItem memory) {
+    function getInsurance(address client, Request memory newRequest) public { //returns (InsuranceItem memory) {
 
-        return (InsuranceProvider(providers[0]).getInsurance(0));
+        /*uint n_pending;
+        n_pending = clients[client].pending;*/
+
+        clients[client].pending = clients[client].pending + 1;
+
+        //aggiunta nuova richiesta al mapping
+        indexed_requests[generator] = newRequest;
+        id_currentReq = generator;
+
+        pending_affairs[client][clients[client].pending] = generator;
+
+        //AGGIUNTA RICHIESTA: ORA SAREBBE DA MANDARE TUTTA LA FUNZIONE CHE PORTA UNA PROPOSAL NEL MAPPING
+
+        //return (InsuranceProvider(providers[0]).getInsurance(0));
 
     }
 
-    function obtainInsurances() public {
+    function getBestProposals() public {
 
         //bisogna creare il mapping:
         //mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
@@ -149,12 +168,34 @@ contract PurchaseHandler is Shared {
 
     }
 
-    function getNewProposal(string memory request_id, InsuranceItem memory newInsurance) public {
+    function getNewProposal(string memory request_id, InsuranceItem memory newInsurance) public returns (address) {
 
         if(proposals[request_id].insurance_type == newInsurance.insurance_type && newInsurance.price < proposals[request_id].price)
             proposals[request_id] = newInsurance;
         
         //emit event changed proposal?
+
+        return indexed_requests[request_id].client;
+
+    }
+
+    function getRequests(address client) public {
+
+        //ridondante
+        clientInfo memory asking = clients[client];
+
+        console.log('%d', clients[client].pending);
+
+        uint j=1;
+
+        while(j<=asking.pending) { //ma perché non while(j<=clients[client].pending) {
+            
+            //così si dovrebbero ottenere gli id delle proprie richieste
+            console.log('%d: %s', j, pending_affairs[client][j]);
+
+            j++;
+
+        }
 
     }
 
