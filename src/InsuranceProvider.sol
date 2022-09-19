@@ -12,13 +12,18 @@ contract InsuranceProvider is Shared {
 
     uint insurance_index = 0;
 
-    string random = "ok"; //generatore di id?
+    //dove si inseriscono i fondi (:)
+    address wallet;
 
+    //teoricamente non serve più
+    //string random = "ok"; //generatore di id?
+
+    //fatto che ogni provider ha un handler di riferimento
     PurchaseHandler handler;
     
     mapping(uint => InsuranceItem) insurances; //assicurazioni indicizzate
 
-    constructor (string memory nP, address _handlerAddr) {
+    constructor (string memory nP, address payable _handlerAddr) {
         nameP = nP;
 
         handler = PurchaseHandler(_handlerAddr);
@@ -31,10 +36,14 @@ contract InsuranceProvider is Shared {
         return insurances[retrieve_index];
     } //al singolare?
 
-    function getIndex() public view returns (uint) {
+    //ha utilità? forse per l'handler?
+    function getTotInsurances() public view returns (uint) {
         return insurance_index;
     }
 
+    //funzione che restituisce la migliore insurance per la richiesta fatta
+    //ora c'è un solo mapping perché se ne gestiscono poche
+    //POSSIBILE MIGLIORIA: DIVERSI MAPPING PER I DIVERSI TIPI -- filtro ""automatico""
     function getRequest(Request memory r) public view returns (InsuranceItem memory) {
 
         InsuranceItem memory winner;
@@ -44,30 +53,24 @@ contract InsuranceProvider is Shared {
         for(uint i=0; i<insurance_index; i++) {
             
             if(insurances[i].insurance_type == r.t && insurances[i].price <= winner.price) {
-
                 winner = insurances[i];
-
             }
 
         }
 
         return winner;
 
-        /*else
-            return err;*/ //non c'è un insurance item
-
     }
 
-    /*function getPortfolio() public view returns (InsuranceItem[] memory) {
-        return insurances;
-    }*/
 
-    function setInsurance(/*string memory n,*/ Type t, uint256 p) public {
+    function setInsurance(Type t, uint256 p) public {
         //add al mapping
 
         InsuranceItem memory newInsurance = InsuranceItem({
-            provider: nameP,
-            id: random, //l'assicurazione ha bisogno di un id? provider e index dovrebbero identificarla univocamente
+            _providerWallet: wallet,
+            //l'assicurazione ha bisogno di un id? provider e index dovrebbero identificarla univocamente
+            //prova: index (che poi come dovrei leggerli? al massimo aggiungere "-") --> da capire
+            id: "prova", 
             insurance_type: t,
             price: p
         });
@@ -75,14 +78,6 @@ contract InsuranceProvider is Shared {
         insurances[insurance_index] = newInsurance;
 
         insurance_index = insurance_index + 1;
-
-    }
-
-    function proposeInsurance(string memory request_id, InsuranceItem memory newInsurance) public {
-
-        //handler.getNewProposal
-
-        handler.getNewProposal(request_id, newInsurance);
 
     }
     

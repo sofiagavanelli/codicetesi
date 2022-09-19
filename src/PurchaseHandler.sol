@@ -10,145 +10,137 @@ contract PurchaseHandler is Shared {
     
     mapping(uint => address) providers; //ok??
     uint n_providers; //ok??
-    /*troppo pesante da gestire
-    mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider? */
-    mapping(uint => InsuranceItem) insurances; // ma address del provider?
-    //mapping(address => uint) n_insurance_items; //address teoricamente del provider (ok??)
+    mapping(uint => InsuranceItem) insurances; 
 
-    //string = ID REQUEST
-    mapping(string => Request) indexed_requests;
-    //string = ID REQUEST
-    mapping(string => InsuranceItem) proposals;
+    //uint = ID REQUEST
+    mapping(uint => Request) indexed_requests;
+    //uint = ID REQUEST 
+    mapping(uint => InsuranceItem) proposals;
 
-    //string = ID CLIENTE (address?) => (int => ID REQUEST))
-    mapping(address => mapping(uint => string)) pending_affairs;
-    //string = ID CLIENTE
+    //address: CLIENT WALLET ADDRESS => (int => ID REQUEST))
+    mapping(address => mapping(uint => uint)) pending_affairs;
     mapping(address => clientInfo) clients;
 
-    //mapping(string => mapping(string => Proposal)) pending; 
-    // pending_insurances) buying_queue;
-
-    //event AskForInsurance(Request r);
+    mapping(address => uint256) deposits;
 
     //id delle request
-    string generator = "prova";
+    //tiene conto di quelle GENERALI per cui aumenta linearmente all'aumentare delle richieste - non ottimale prob
+    uint id_R = 0; //adesso l'id è un int -- forse creare string
+
+    Request public currentRequest;
+    uint id_currentReq;
 
     /****************vecchie cose */
-    uint max_time; //è un input o una costante?
+    //uint max_time; //è un input o una costante?
     clientInfo public currentClient;
     /**************************** */
 
-    Request public currentRequest;
-    string id_currentReq;
-
-
     //input di _pool: ["0x---","0x---"] --> se in array allora gli address usano ""!!!
-    constructor() {/*address _controllerAddr, address[] memory _prov) {
-
-        //CONTROLLER OUT
-        //controlData = Controller(_controllerAddr);
-        n_providers = _prov.length;
-        for(uint i=0; i<n_providers; i++) {
-            //providers[i].push(_prov[i]);
-            providers[i] = _prov[i];
-            //n_insurance_items[_prov[i]].push(InsuranceProvider(_prov[i]).getIndex());
-            //n_insurance_items[_prov[i]]= InsuranceProvider(_prov[i]).getIndex();
-        }*/
-
+    constructor() {
         //il costruttore setta qualcosa?
-
     }
 
-    function setProviders(address[] memory _prov /*, uint n_prov*/) public {
 
-        //CONTROLLER OUT
-        //controlData = Controller(_controllerAddr);
-
+    //dato l'handler si settano i ""partecipanti""
+    function setProviders(address[] memory _prov)public {
         n_providers = _prov.length;
 
         for(uint i=0; i<n_providers; i++) {
-
-            //providers[i].push(_prov[i]);
             providers[i] = _prov[i];
-            //n_insurance_items[_prov[i]].push(InsuranceProvider(_prov[i]).getIndex());
-            //n_insurance_items[_prov[i]]= InsuranceProvider(_prov[i]).getIndex();
-
         }
-
     }
 
-    //quando funzionerà il client allora verrà creato l'handler e chiamato da qui
-    function takeClient(address client, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
-        string memory _cIban) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
 
+    //funzione che viene chiamata dentro la request insurance del cliente
+    function takeClient(address _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
+        /*uint _hoursToWait*/uint256 _expireDate) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
+        
         bool feedback;
 
-        //clientInfo(name, id, bday, discount, pending, iban) 
-        currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, 1, _cIban);
-        currentRequest = Request(client, _t, _cMaxp);
+        //questa funzione si usa solo se il client non è già registrato, se no si usa askNewInsurance()
+        //da capire
+        //require(bytes(clients[_clientWallet].length()) == 0, "client already registered");
+
+        //alla fine rimuovere perché il client manda già un uint256
+        //uint256 _expireDate = nowTime() + (3600*_hoursToWait);
+
+        //seguono la struttura di clientInfo e Request da Shared.sol
+        //1 => fa riferimento a clientInfo.pending che si inizializza a 1
+        currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, 1, _clientWallet);
+        currentRequest = Request(_clientWallet, _t, _cMaxp, _expireDate);
 
         //aggiunta nuova richiesta al mapping
-        indexed_requests[generator] = currentRequest;
-        id_currentReq = generator;
+        indexed_requests[id_R] = currentRequest;
+        id_currentReq = id_R;
+        
+        //va aggiunto il client!!
+        clients[_clientWallet] = currentClient;
 
-        pending_affairs[client][1] = generator;
+        console.log('prova nome: %s ', clients[_clientWallet].name);
 
-        //console.log('riga 62 handler');
+        //request gestite tramite int in aumento -- da modificare nel caso di complessità
+        id_R = id_R + 1;
+
+        pending_affairs[_clientWallet][1] = id_R;
+
+        //questo feedback sarebbe da modificare => cioè con l'aggiunta del deposito è solo per segnalare che si è stati aggiunti (si può non passre dall'assegnamento)
         feedback = true;
 
-        //console.log('feedback %d', feedback);
-
         return feedback;
-
     }
 
-    function getInsurance(address client, Request memory newRequest) public { //returns (InsuranceItem memory) {
 
-        /*uint n_pending;
-        n_pending = clients[client].pending;*/
+    //dopo aver settato il cliente (con la prima richiesta) -- non ha senso risettarlo!!!!!!
+    //gestire input request
+    function askNewInsurance(address _clientWallet, Request memory newRequest) public { 
 
-        clients[client].pending = clients[client].pending + 1;
+        //dal mapping del client segnalo che ha aggiunto una richiesta 
+        //=> aumento dei pending affairs (SOLO in numero -> utilità: per il getRequests)
+        clients[_clientWallet].pending = clients[_clientWallet].pending + 1;
 
         //aggiunta nuova richiesta al mapping
-        indexed_requests[generator] = newRequest;
-        id_currentReq = generator;
+        indexed_requests[id_R] = newRequest;
 
-        pending_affairs[client][clients[client].pending] = generator;
+        //perché metterla come current?
+        id_currentReq = id_R;
+
+        //aggiornamento index
+        id_R = id_R + 1;
+
+        //per aggiungere ai pending affairs di quel client la nuova richiesta
+        pending_affairs[_clientWallet][clients[_clientWallet].pending] = id_R;
 
         //AGGIUNTA RICHIESTA: ORA SAREBBE DA MANDARE TUTTA LA FUNZIONE CHE PORTA UNA PROPOSAL NEL MAPPING
-
-        //return (InsuranceProvider(providers[0]).getInsurance(0));
-
+        //no perché facciamo solo alla fine -> prof
     }
 
+    //chiama ogni provider e gli chiede la loro MIGLIORE opzione
     function getBestProposals() public {
 
-        //bisogna creare il mapping:
-        //mapping(address => mapping(uint => InsuranceItem)) insurances; // ma address del provider?
-        //return n_insurance_items[providers[0]];
+        nowTime();
+
+        //block.timestamp !!
+        require(last_access > currentRequest.scadenza, "time hasn't expired yet");
 
         uint j=0;
         uint i=0;
 
+        /*forse ci sono problemi*/
         while (j<n_providers) {
             
             insurances[i] = InsuranceProvider(providers[j]).getRequest(currentRequest);
-
-            console.log('%d', insurances[i].price);
-
             i++;
             j++;
             
         }
 
-        //emit AskForInsurance(currentRequest);
-
     }
-    
+
+    //date le proposte seleziono la migliore =>> MOLTI WHILE !!!
+    //!!!! questa va dentro le proposals --> fa tutto una sola funzione
     function confrontInsurances() public returns (InsuranceItem memory) {
 
         InsuranceItem memory to_buy;
-
         to_buy = insurances[0]; //metto la prima
 
         uint j=1;
@@ -164,40 +156,62 @@ contract PurchaseHandler is Shared {
 
         proposals[id_currentReq] = to_buy;
 
+        //c'è il return di quella da comprare: dove metterla?
         return to_buy;
 
     }
 
-    function getNewProposal(string memory request_id, InsuranceItem memory newInsurance) public returns (address) {
+
+    //teoricamente questa si elimina:
+    /*function getNewProposal(string memory request_id, InsuranceItem memory newInsurance) public returns (address) {
 
         if(proposals[request_id].insurance_type == newInsurance.insurance_type && newInsurance.price < proposals[request_id].price)
             proposals[request_id] = newInsurance;
-        
-        //emit event changed proposal?
 
         return indexed_requests[request_id].client;
 
-    }
+    }*/
 
-    function getRequests(address client) public {
+
+    //funzione PER IL CLIENTE: se vuole vedere le sue richieste pending
+    function getRequests(address _clientWallet) public returns (clientInfo memory) {
 
         //ridondante
-        clientInfo memory asking = clients[client];
+        //clientInfo memory asking = clients[client];
 
-        console.log('%d', clients[client].pending);
+        //dice che è 0
+        console.log('%d', clients[_clientWallet].pending);
 
         uint j=1;
 
-        while(j<=asking.pending) { //ma perché non while(j<=clients[client].pending) {
+        //PROBLEMA CON QUESTO MAPPING
+        //console.log('%d: %d', j, pending_affairs[client][j]);
+
+        while(j<=clients[_clientWallet].pending) { //ma perché non while(j<=clients[client].pending) {
             
             //così si dovrebbero ottenere gli id delle proprie richieste
-            console.log('%d: %s', j, pending_affairs[client][j]);
+            console.log('num della req in attesa %d:', j);
+            console.log('id della req %d', pending_affairs[_clientWallet][j]);
 
             j++;
 
         }
 
+        //proviamo a stampare il clientInfo
+        return(clients[_clientWallet]);
+
     }
 
 
+    //TODO: AGGIUNGERE FUNZIONE CHE GUARDA LE RICHIESTE SCADUTE E FA PARTIRE IL GIOCO!
+    //MA POI CHI LA CHIAMEREBBE?
+    //AGGIUNGERE TEMPO DI SCADENZA
+
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {
+        console.log("%d", msg.value);
+        deposits[msg.sender] = msg.value;
+    }
+   
 }
+
