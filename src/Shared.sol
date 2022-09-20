@@ -13,8 +13,8 @@ abstract contract Shared {
 
     struct InsuranceItem {
         //string provider; //ma perché non wallet address del provider???? - messo address nella tesi
-        address _providerWallet;
-        string id; 
+        address provider;
+        string id; //why
         Type insurance_type;
         uint256 price;
     }

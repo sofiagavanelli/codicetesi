@@ -9,7 +9,7 @@ import "./InsuranceProvider.sol";
 contract PurchaseHandler is Shared {
     
     mapping(uint => address) providers; //ok??
-    uint n_providers; //ok??
+    uint n_providers = 0; //ok??
     mapping(uint => InsuranceItem) insurances; 
 
     //uint = ID REQUEST
@@ -43,11 +43,25 @@ contract PurchaseHandler is Shared {
 
     //dato l'handler si settano i ""partecipanti""
     function setProviders(address[] memory _prov)public {
-        n_providers = _prov.length;
 
-        for(uint i=0; i<n_providers; i++) {
-            providers[i] = _prov[i];
+        //se si devono settare da zero
+        if(n_providers == 0) {
+            n_providers = _prov.length;
+
+            for(uint i=0; i<n_providers; i++) {
+                providers[i] = _prov[i];
+            }
         }
+        //se invece ce ne sono già un po' e si stanno aggiungendo
+        else {
+            uint temp = n_providers;
+            n_providers = temp + _prov.length
+
+            for(uint i=temp; i<n_providers; i++) {
+                providers[i] = _prov[i];
+            }
+        }
+
     }
 
 
@@ -156,6 +170,15 @@ contract PurchaseHandler is Shared {
 
         proposals[id_currentReq] = to_buy;
 
+        sendDeposit(to_buy.provider, to_buy.price)
+
+        uint256 change;
+        address client = indexed_requests[id_currentReq].clientWallet;
+        change = deposits[client] - to_buy.price;
+        //restituire il resto
+        sendDeposit(client, change);
+        //change = come ho accesso al cliente? per ottenere il suo deposito?
+
         //c'è il return di quella da comprare: dove metterla?
         return to_buy;
 
@@ -191,7 +214,9 @@ contract PurchaseHandler is Shared {
             
             //così si dovrebbero ottenere gli id delle proprie richieste
             console.log('num della req in attesa %d:', j);
+            uint id_req = pending_affairs[_clientWallet][j];
             console.log('id della req %d', pending_affairs[_clientWallet][j]);
+            console.log(indexed_requests[id_req]);
 
             j++;
 

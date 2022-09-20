@@ -12,7 +12,7 @@ import "./PurchaseHandler.sol";
 
 contract Client is Shared {
 
-    address public owner; //chi ha deployato
+    address public owner; //chi ha deployato??
 
     string name;
     string id;

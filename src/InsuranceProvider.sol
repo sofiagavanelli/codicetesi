@@ -13,7 +13,7 @@ contract InsuranceProvider is Shared {
     uint insurance_index = 0;
 
     //dove si inseriscono i fondi (:)
-    address wallet;
+    //address wallet;
 
     //teoricamente non serve più
     //string random = "ok"; //generatore di id?
@@ -80,5 +80,10 @@ contract InsuranceProvider is Shared {
         insurance_index = insurance_index + 1;
 
     }
+
+    receive() external payable {
+        //ma si cancellano? no dai
+    }
+
     
 }
