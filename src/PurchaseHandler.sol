@@ -55,7 +55,7 @@ contract PurchaseHandler is Shared {
         //se invece ce ne sono già un po' e si stanno aggiungendo
         else {
             uint temp = n_providers;
-            n_providers = temp + _prov.length
+            n_providers = temp + _prov.length;
 
             for(uint i=temp; i<n_providers; i++) {
                 providers[i] = _prov[i];
@@ -66,8 +66,8 @@ contract PurchaseHandler is Shared {
 
 
     //funzione che viene chiamata dentro la request insurance del cliente
-    function takeClient(address _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount, uint _cMaxp, Type _t, 
-        /*uint _hoursToWait*/uint256 _expireDate) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
+    function takeClient(address _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount/*,uint _cMaxp, Type _t, 
+        /*uint _hoursToWait*uint256 _expireDate*/) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
         
         bool feedback;
 
@@ -80,8 +80,12 @@ contract PurchaseHandler is Shared {
 
         //seguono la struttura di clientInfo e Request da Shared.sol
         //1 => fa riferimento a clientInfo.pending che si inizializza a 1
+        
+        //si setta il client! tipo new registration
         currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, 1, _clientWallet);
-        currentRequest = Request(_clientWallet, _t, _cMaxp, _expireDate);
+        clients[_clientWallet] = currentClient;
+
+        /*currentRequest = Request(_clientWallet, _t, _cMaxp, _expireDate);
 
         //aggiunta nuova richiesta al mapping
         indexed_requests[id_R] = currentRequest;
@@ -95,9 +99,10 @@ contract PurchaseHandler is Shared {
         //request gestite tramite int in aumento -- da modificare nel caso di complessità
         id_R = id_R + 1;
 
-        pending_affairs[_clientWallet][1] = id_R;
+        pending_affairs[_clientWallet][1] = id_R;*/
 
         //questo feedback sarebbe da modificare => cioè con l'aggiunta del deposito è solo per segnalare che si è stati aggiunti (si può non passre dall'assegnamento)
+        //oppure solo require che non sia nuovo
         feedback = true;
 
         return feedback;
@@ -107,6 +112,8 @@ contract PurchaseHandler is Shared {
     //dopo aver settato il cliente (con la prima richiesta) -- non ha senso risettarlo!!!!!!
     //gestire input request
     function askNewInsurance(address _clientWallet, Request memory newRequest) public { 
+
+        require(deposits[_clientWallet] >= newRequest.maxp, "not enough ether");
 
         //dal mapping del client segnalo che ha aggiunto una richiesta 
         //=> aumento dei pending affairs (SOLO in numero -> utilità: per il getRequests)
@@ -170,7 +177,7 @@ contract PurchaseHandler is Shared {
 
         proposals[id_currentReq] = to_buy;
 
-        sendDeposit(to_buy.provider, to_buy.price)
+        sendDeposit(to_buy.provider, to_buy.price);
 
         uint256 change;
         address client = indexed_requests[id_currentReq].clientWallet;

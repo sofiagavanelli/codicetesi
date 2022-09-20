@@ -38,7 +38,7 @@ contract InsuranceProvider is Shared {
 
     //ha utilità? forse per l'handler?
     function getTotInsurances() public view returns (uint) {
-        return insurance_index;
+        return insurance_index; 
     }
 
     //funzione che restituisce la migliore insurance per la richiesta fatta

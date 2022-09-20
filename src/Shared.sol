@@ -21,10 +21,8 @@ abstract contract Shared {
     
     struct Request {
         address clientWallet;
-
         Type t;
         uint256 maxp;
-
         uint256 scadenza;
     }
 
