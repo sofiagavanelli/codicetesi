@@ -13,14 +13,14 @@ abstract contract Shared {
 
     struct InsuranceItem {
         //string provider; //ma perché non wallet address del provider???? - messo address nella tesi
-        address provider;
+        address payable provider;
         string id; //why
         Type insurance_type;
         uint256 price;
     }
     
     struct Request {
-        address clientWallet;
+        address payable clientWallet;
         Type t;
         uint256 maxp;
         uint256 scadenza;
@@ -39,7 +39,7 @@ abstract contract Shared {
         
         //da decidere se mettere una request qui
 
-        address _clientWallet;
+        address payable _clientWallet;
         //string clIBAN;
     }
 

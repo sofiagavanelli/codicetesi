@@ -23,7 +23,7 @@ contract InsuranceProvider is Shared {
     
     mapping(uint => InsuranceItem) insurances; //assicurazioni indicizzate
 
-    constructor (string memory nP, address payable _handlerAddr) {
+    constructor (string memory nP, address payable _handlerAddr) payable {
         nameP = nP;
 
         handler = PurchaseHandler(_handlerAddr);
@@ -67,12 +67,12 @@ contract InsuranceProvider is Shared {
         //add al mapping
 
         InsuranceItem memory newInsurance = InsuranceItem({
-            _providerWallet: wallet,
+            provider: payable(address(this)),
             //l'assicurazione ha bisogno di un id? provider e index dovrebbero identificarla univocamente
             //prova: index (che poi come dovrei leggerli? al massimo aggiungere "-") --> da capire
             id: "prova", 
             insurance_type: t,
-            price: p
+            price: p * 1000000000000000000 //per renderlo in ether
         });
 
         insurances[insurance_index] = newInsurance;

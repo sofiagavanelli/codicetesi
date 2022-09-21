@@ -29,7 +29,7 @@ contract Client is Shared {
     /*string clientIBAN;
     string clientPayment;*/
     //è meglio (se si usano gli ether!!)
-    address wallet;
+    address payable wallet;
 
     /* come mantenere le richieste? */
     //tipo portfolio delle richieste di un cliente?
@@ -65,7 +65,7 @@ contract Client is Shared {
 
         //console.log('scadenza: %d', insurance.scadenza);
 
-        wallet = address(this);
+        wallet = payable(address(this));
 
         console.log("%d", address(this).balance);
 
@@ -83,21 +83,25 @@ contract Client is Shared {
 
     //TODO: mettere funzione che setta il profilo del cliente + chiede l'insurance
     //e aggiungere una funzione a parte chiamata askInsurance per gestire quelle successive?
-    function requestInsurance(uint _maxpurchase, Type _t, uint _hoursToWait) public {// returns (InsuranceItem memory) {
+    function requestInsurance(uint _maxpurchase, Type _t, uint _hoursToWait) public payable {// returns (InsuranceItem memory) {
 
         //InsuranceItem memory prova;
 
         nowTime();
 
         require(address(this).balance >= insurance.maxp, "not enough ether");
-            sendDeposit(_handler, insurance.maxp);
+
+        uint256 total = _maxpurchase * 1000000000000000000;
+        sendDeposit(_handler, total);
 
         Request memory newRequest = Request({
-            clientWallet: address(this),
+            clientWallet: wallet,
             t: _t,
-            maxp: _maxpurchase * 1000000000000000000,
+            maxp: total,
             scadenza: last_access + (3600 * _hoursToWait)
         });
+
+        handler.askNewInsurance(wallet, newRequest);
 
         //ma fare solo handler.giveInsurance e poi fa handler?
         //INPUT: (client, _cName, _cId, _cBirth, _cDiscount, _cMaxp, _t, _expireDate, _wallet)       
@@ -140,6 +144,11 @@ contract Client is Shared {
 
     // Function to receive Ether. msg.data must be empty
     receive() external payable {}
+
+    //per capire cosa ariva
+    fallback(bytes calldata) external payable returns(bytes memory) {
+        return(msg.data);
+    }
 
 
 }

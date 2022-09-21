@@ -8,7 +8,7 @@ import "./InsuranceProvider.sol";
 
 contract PurchaseHandler is Shared {
     
-    mapping(uint => address) providers; //ok??
+    mapping(uint => address payable) providers; //ok??
     uint n_providers = 0; //ok??
     mapping(uint => InsuranceItem) insurances; 
 
@@ -42,7 +42,7 @@ contract PurchaseHandler is Shared {
 
 
     //dato l'handler si settano i ""partecipanti""
-    function setProviders(address[] memory _prov)public {
+    function setProviders(address payable[] memory _prov)public {
 
         //se si devono settare da zero
         if(n_providers == 0) {
@@ -66,7 +66,7 @@ contract PurchaseHandler is Shared {
 
 
     //funzione che viene chiamata dentro la request insurance del cliente
-    function takeClient(address _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount/*,uint _cMaxp, Type _t, 
+    function takeClient(address payable _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount/*,uint _cMaxp, Type _t, 
         /*uint _hoursToWait*uint256 _expireDate*/) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
         
         bool feedback;
@@ -111,9 +111,10 @@ contract PurchaseHandler is Shared {
 
     //dopo aver settato il cliente (con la prima richiesta) -- non ha senso risettarlo!!!!!!
     //gestire input request
-    function askNewInsurance(address _clientWallet, Request memory newRequest) public { 
+    function askNewInsurance(address _clientWallet, Request memory newRequest) public payable { 
 
-        require(deposits[_clientWallet] >= newRequest.maxp, "not enough ether");
+        //teoricamente se entri qui avevi i soldi necessari
+        //require(deposits[_clientWallet] >= newRequest.maxp, "not enough ether sent");
 
         //dal mapping del client segnalo che ha aggiunto una richiesta 
         //=> aumento dei pending affairs (SOLO in numero -> utilità: per il getRequests)
@@ -136,7 +137,7 @@ contract PurchaseHandler is Shared {
     }
 
     //chiama ogni provider e gli chiede la loro MIGLIORE opzione
-    function getBestProposals() public {
+    function getInsurance() public {
 
         nowTime();
 
@@ -154,6 +155,8 @@ contract PurchaseHandler is Shared {
             j++;
             
         }
+
+        confrontInsurances();
 
     }
 
@@ -180,15 +183,22 @@ contract PurchaseHandler is Shared {
         sendDeposit(to_buy.provider, to_buy.price);
 
         uint256 change;
-        address client = indexed_requests[id_currentReq].clientWallet;
-        change = deposits[client] - to_buy.price;
+        address payable client = indexed_requests[id_currentReq].clientWallet;
+        //perché il deposit del client potrebbe essere più del maxp di quella specifica richiesta == potrebbe avere altre pending!!
+        change = indexed_requests[id_currentReq].maxp - to_buy.price; //deposits[client] 
         //restituire il resto
-        sendDeposit(client, change);
+        sendChange(client, change, to_buy);
         //change = come ho accesso al cliente? per ottenere il suo deposito?
 
-        //c'è il return di quella da comprare: dove metterla?
+        //c'è il return di quella comprata: dove metterla?
         return to_buy;
 
+    }
+    //per mandare indietro quella acquistata!
+    function sendChange(address payable _to, uint _price, InsuranceItem memory _bought) public payable {
+        //abi.encode da capire
+        (bool sent, bytes memory data) = _to.call{value: _price}(abi.encode(_bought));
+        require(sent, "Failed to send Ether");
     }
 
 
@@ -223,7 +233,7 @@ contract PurchaseHandler is Shared {
             console.log('num della req in attesa %d:', j);
             uint id_req = pending_affairs[_clientWallet][j];
             console.log('id della req %d', pending_affairs[_clientWallet][j]);
-            console.log(indexed_requests[id_req]);
+            //console.log(indexed_requests[id_req]);
 
             j++;
 
@@ -242,7 +252,8 @@ contract PurchaseHandler is Shared {
     // Function to receive Ether. msg.data must be empty
     receive() external payable {
         console.log("%d", msg.value);
-        deposits[msg.sender] = msg.value;
+        //lo sommo a quello già presente!!
+        deposits[msg.sender] = deposits[msg.sender] + msg.value;
     }
    
 }
