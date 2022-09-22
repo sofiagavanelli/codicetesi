@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 import "./Shared.sol";
 import "./InsuranceProvider.sol";
@@ -27,12 +27,12 @@ contract PurchaseHandler is Shared {
     //tiene conto di quelle GENERALI per cui aumenta linearmente all'aumentare delle richieste - non ottimale prob
     uint id_R = 0; //adesso l'id è un int -- forse creare string
 
-    Request public currentRequest;
-    uint id_currentReq;
+    //Request public newRequest;
+    //uint id_newReq;
 
     /****************vecchie cose */
     //uint max_time; //è un input o una costante?
-    clientInfo public currentClient;
+    clientInfo public newClient;
     /**************************** */
 
     //input di _pool: ["0x---","0x---"] --> se in array allora gli address usano ""!!!
@@ -42,7 +42,7 @@ contract PurchaseHandler is Shared {
 
 
     //dato l'handler si settano i ""partecipanti""
-    function setProviders(address payable[] memory _prov)public {
+    function setProviders(address payable[] memory _prov) public {
 
         //se si devono settare da zero
         if(n_providers == 0) {
@@ -66,7 +66,7 @@ contract PurchaseHandler is Shared {
 
 
     //funzione che viene chiamata dentro la request insurance del cliente
-    function takeClient(address payable _clientWallet, string memory _cName, string memory _cId, uint _cBirth, string memory _cDiscount/*,uint _cMaxp, Type _t, 
+    function takeClient(address payable _clientWallet, string memory _cName,/* string memory _cId,*/ uint _cBirth, string memory _cDiscount/*,uint _cMaxp, Type _t, 
         /*uint _hoursToWait*uint256 _expireDate*/) public returns (bool) { //ci dovrà essere un return che dà una risposta al client
         
         bool feedback;
@@ -81,9 +81,9 @@ contract PurchaseHandler is Shared {
         //seguono la struttura di clientInfo e Request da Shared.sol
         //1 => fa riferimento a clientInfo.pending che si inizializza a 1
         
-        //si setta il client! tipo new registration
-        currentClient = clientInfo(_cName, _cId, _cBirth, _cDiscount, 1, _clientWallet);
-        clients[_clientWallet] = currentClient;
+        //si setta il client! tipo new registration --si setta pending a 0
+        newClient = clientInfo(_cName, /*_cId,*/ _cBirth, _cDiscount, 0, _clientWallet);
+        clients[_clientWallet] = newClient;
 
         /*currentRequest = Request(_clientWallet, _t, _cMaxp, _expireDate);
 
@@ -111,7 +111,7 @@ contract PurchaseHandler is Shared {
 
     //dopo aver settato il cliente (con la prima richiesta) -- non ha senso risettarlo!!!!!!
     //gestire input request
-    function askNewInsurance(address _clientWallet, Request memory newRequest) public payable { 
+    function askNewInsurance(address _clientWallet, Request memory _newRequest) public payable { 
 
         //teoricamente se entri qui avevi i soldi necessari
         //require(deposits[_clientWallet] >= newRequest.maxp, "not enough ether sent");
@@ -121,48 +121,56 @@ contract PurchaseHandler is Shared {
         clients[_clientWallet].pending = clients[_clientWallet].pending + 1;
 
         //aggiunta nuova richiesta al mapping
-        indexed_requests[id_R] = newRequest;
+        indexed_requests[id_R] = _newRequest;
 
         //perché metterla come current?
-        id_currentReq = id_R;
+        //id_currentReq = id_R;
 
-        //aggiornamento index
+        //aggiornamento index del mapping
         id_R = id_R + 1;
 
         //per aggiungere ai pending affairs di quel client la nuova richiesta
         pending_affairs[_clientWallet][clients[_clientWallet].pending] = id_R;
+
+        // QUI
+        /*FACCIO EMIT EVENT SET TIMER CON IL TEMPO E L'ID DELLA RICHIESTA COSI POI FA JS */
 
         //AGGIUNTA RICHIESTA: ORA SAREBBE DA MANDARE TUTTA LA FUNZIONE CHE PORTA UNA PROPOSAL NEL MAPPING
         //no perché facciamo solo alla fine -> prof
     }
 
     //chiama ogni provider e gli chiede la loro MIGLIORE opzione
-    function getInsurance() public {
+    //uint è l'id della richiesta!! 
+    function getInsurance(uint to_control) public payable {
 
         nowTime();
 
+        //bisogna decidere che request controllare!!
+        //tipo random number tra 0 e id_R??
+        //ora è con l'input ma NON ha senso
+
         //block.timestamp !!
-        require(last_access > currentRequest.scadenza, "time hasn't expired yet");
+        require(last_access > indexed_requests[to_control].scadenza, "time hasn't expired yet");
 
         uint j=0;
         uint i=0;
 
-        /*forse ci sono problemi*/
+        /***** */
         while (j<n_providers) {
             
-            insurances[i] = InsuranceProvider(providers[j]).getRequest(currentRequest);
+            insurances[i] = InsuranceProvider(providers[j]).getRequest(indexed_requests[to_control]);
             i++;
             j++;
             
         }
 
-        confrontInsurances();
+        confrontInsurances(to_control);
 
     }
 
     //date le proposte seleziono la migliore =>> MOLTI WHILE !!!
     //!!!! questa va dentro le proposals --> fa tutto una sola funzione
-    function confrontInsurances() public returns (InsuranceItem memory) {
+    function confrontInsurances(uint id_Req) public payable returns (InsuranceItem memory) { /*private?*/
 
         InsuranceItem memory to_buy;
         to_buy = insurances[0]; //metto la prima
@@ -178,14 +186,16 @@ contract PurchaseHandler is Shared {
 
         }
 
-        proposals[id_currentReq] = to_buy;
+        //questa cosa adesso ha perso di senso!!
+        //proposals inutile
+        proposals[id_Req] = to_buy;
 
         sendDeposit(to_buy.provider, to_buy.price);
 
         uint256 change;
-        address payable client = indexed_requests[id_currentReq].clientWallet;
+        address payable client = indexed_requests[id_Req].clientWallet;
         //perché il deposit del client potrebbe essere più del maxp di quella specifica richiesta == potrebbe avere altre pending!!
-        change = indexed_requests[id_currentReq].maxp - to_buy.price; //deposits[client] 
+        change = indexed_requests[id_Req].maxp - to_buy.price; //deposits[client] 
         //restituire il resto
         sendChange(client, change, to_buy);
         //change = come ho accesso al cliente? per ottenere il suo deposito?
@@ -220,7 +230,7 @@ contract PurchaseHandler is Shared {
         //clientInfo memory asking = clients[client];
 
         //dice che è 0
-        console.log('%d', clients[_clientWallet].pending);
+        //console.log('%d', clients[_clientWallet].pending);
 
         uint j=1;
 
@@ -230,9 +240,9 @@ contract PurchaseHandler is Shared {
         while(j<=clients[_clientWallet].pending) { //ma perché non while(j<=clients[client].pending) {
             
             //così si dovrebbero ottenere gli id delle proprie richieste
-            console.log('num della req in attesa %d:', j);
+            //console.log('num della req in attesa %d:', j);
             uint id_req = pending_affairs[_clientWallet][j];
-            console.log('id della req %d', pending_affairs[_clientWallet][j]);
+            //console.log('id della req %d', pending_affairs[_clientWallet][j]);
             //console.log(indexed_requests[id_req]);
 
             j++;
@@ -251,7 +261,7 @@ contract PurchaseHandler is Shared {
 
     // Function to receive Ether. msg.data must be empty
     receive() external payable {
-        console.log("%d", msg.value);
+        //console.log("%d", msg.value);
         //lo sommo a quello già presente!!
         deposits[msg.sender] = deposits[msg.sender] + msg.value;
     }

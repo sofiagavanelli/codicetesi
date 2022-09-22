@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
-import "./PurchaseHandler.sol";
+//import "./PurchaseHandler.sol";
 import "./Shared.sol";
 
 contract InsuranceProvider is Shared {
@@ -19,20 +19,20 @@ contract InsuranceProvider is Shared {
     //string random = "ok"; //generatore di id?
 
     //fatto che ogni provider ha un handler di riferimento
-    PurchaseHandler handler;
+    /*PurchaseHandler*/ address handler;
     
     mapping(uint => InsuranceItem) insurances; //assicurazioni indicizzate
 
     constructor (string memory nP, address payable _handlerAddr) payable {
         nameP = nP;
 
-        handler = PurchaseHandler(_handlerAddr);
+        handler = _handlerAddr;//PurchaseHandler(_handlerAddr);
 
     }
 
     function getInsurance(uint retrieve_index) public view returns (InsuranceItem memory) { //non serve address provider, perché siamo dentro questo
 
-        console.log('siam qua %d', retrieve_index);
+        //console.log('siam qua %d', retrieve_index);
         return insurances[retrieve_index];
     } //al singolare?
 
@@ -70,9 +70,9 @@ contract InsuranceProvider is Shared {
             provider: payable(address(this)),
             //l'assicurazione ha bisogno di un id? provider e index dovrebbero identificarla univocamente
             //prova: index (che poi come dovrei leggerli? al massimo aggiungere "-") --> da capire
-            id: "prova", 
+            //id: "prova", 
             insurance_type: t,
-            price: p * 1000000000000000000 //per renderlo in ether
+            price: p * eth_index //per renderlo in ether
         });
 
         insurances[insurance_index] = newInsurance;

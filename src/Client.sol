@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 import "./PurchaseHandler.sol";
 
@@ -15,7 +15,7 @@ contract Client is Shared {
     address public owner; //chi ha deployato??
 
     string name;
-    string id;
+    //string id;
     bool gender;
     uint256 birth;
     string discount_n;
@@ -38,7 +38,7 @@ contract Client is Shared {
     address payable _handler;
 
     //costruttore per creare un cliente 
-    constructor (string memory _name, string memory _id, bool _gender, uint _birth, string memory _discount, /* uint _maxpurchase, Type _t, 
+    constructor (string memory _name, /*string memory _id,*/ bool _gender, uint _birth, string memory _discount, /* uint _maxpurchase, Type _t, 
         uint _hoursToWait, /*address _wallet,*/ address payable _handlerAddr) payable {
 
         
@@ -50,7 +50,7 @@ contract Client is Shared {
         
         name = _name;
         //ma ??
-        id = _id;
+        //id = _id;
         gender = _gender;
         birth = _birth;
         discount_n = _discount; //ma lo teniamo?
@@ -67,14 +67,15 @@ contract Client is Shared {
 
         wallet = payable(address(this));
 
-        console.log("%d", address(this).balance);
+        //console.log("%d", address(this).balance);
 
         _handler = _handlerAddr;
         handler = PurchaseHandler(_handlerAddr);
 
         ///ha il bool di feedback
-        if(! handler.takeClient(wallet, name, id, birth, discount_n))
-            console.log("problem with registration");
+        bool registration = handler.takeClient(wallet, name/*, id*/, birth, discount_n);
+        require(registration, "problems with your registration");
+            //console.log("problem with registration");
 
     }
 
@@ -89,15 +90,15 @@ contract Client is Shared {
 
         nowTime();
 
-        require(address(this).balance >= insurance.maxp, "not enough ether");
+        require(address(this).balance >= _maxpurchase, "not enough ether");
 
-        uint256 total = _maxpurchase * 1000000000000000000;
-        sendDeposit(_handler, total);
+        //uint256 total = _maxpurchase * eth_index;
+        sendDeposit(_handler, _maxpurchase/*total*/);
 
         Request memory newRequest = Request({
             clientWallet: wallet,
             t: _t,
-            maxp: total,
+            maxp: _maxpurchase, //total,
             scadenza: last_access + (3600 * _hoursToWait)
         });
 

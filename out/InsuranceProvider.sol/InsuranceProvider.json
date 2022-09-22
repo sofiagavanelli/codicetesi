@@ -1,0 +1,2023 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "nP",
+          "type": "string"
+        },
+        {
+          "internalType": "address payable",
+          "name": "_handlerAddr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "retrieve_index",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInsurance",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address payable",
+              "name": "provider",
+              "type": "address"
+            },
+            {
+              "internalType": "enum Shared.Type",
+              "name": "insurance_type",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Shared.InsuranceItem",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address payable",
+              "name": "clientWallet",
+              "type": "address"
+            },
+            {
+              "internalType": "enum Shared.Type",
+              "name": "t",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "scadenza",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Shared.Request",
+          "name": "r",
+          "type": "tuple"
+        }
+      ],
+      "name": "getRequest",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address payable",
+              "name": "provider",
+              "type": "address"
+            },
+            {
+              "internalType": "enum Shared.Type",
+              "name": "insurance_type",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Shared.InsuranceItem",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotInsurances",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "nowTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "retrieveTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendDeposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum Shared.Type",
+          "name": "t",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "p",
+          "type": "uint256"
+        }
+      ],
+      "name": "setInsurance",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "bytecode": {
+    "object": "0x608060405260008055670de0b6b3a764000060015560006003556040516200098a3803806200098a8339810160408190526200003b91620000a4565b600262000049838262000224565b50600480546001600160a01b0319166001600160a01b039290921691909117905550620002f0565b634e487b7160e01b600052604160045260246000fd5b80516001600160a01b03811681146200009f57600080fd5b919050565b60008060408385031215620000b857600080fd5b82516001600160401b0380821115620000d057600080fd5b818501915085601f830112620000e557600080fd5b815181811115620000fa57620000fa62000071565b604051601f8201601f19908116603f0116810190838211818310171562000125576200012562000071565b816040528281526020935088848487010111156200014257600080fd5b600091505b8282101562000166578482018401518183018501529083019062000147565b82821115620001785760008484830101525b95506200018a91505085820162000087565b925050509250929050565b600181811c90821680620001aa57607f821691505b602082108103620001cb57634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200021f57600081815260208120601f850160051c81016020861015620001fa5750805b601f850160051c820191505b818110156200021b5782815560010162000206565b5050505b505050565b81516001600160401b0381111562000240576200024062000071565b620002588162000251845462000195565b84620001d1565b602080601f831160018114620002905760008415620002775750858301515b600019600386901b1c1916600185901b1785556200021b565b600085815260208120601f198616915b82811015620002c157888601518255948401946001909101908401620002a0565b5085821015620002e05787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b61068a80620003006000396000f3fe6080604052600436106100745760003560e01c806385fae6021161004e57806385fae602146100de578063bb25d76a1461010b578063e35fd0c71461012b578063f5ac85921461013e57600080fd5b806317ee895f14610080578063335f1b37146100a25780636a0eb96c146100c957600080fd5b3661007b57005b600080fd5b34801561008c57600080fd5b506100a061009b366004610496565b610153565b005b3480156100ae57600080fd5b504260008190555b6040519081526020015b60405180910390f35b3480156100d557600080fd5b506000546100b6565b3480156100ea57600080fd5b506100fe6100f93660046104c0565b61021d565b6040516100c091906104ef565b34801561011757600080fd5b506100fe610126366004610552565b6102a9565b6100a06101393660046105d2565b6103dc565b34801561014a57600080fd5b506003546100b6565b60006040518060600160405280306001600160a01b03168152602001846002811115610181576101816104d9565b8152602001600154846101949190610604565b90526003546000908152600560209081526040909120825181546001600160a01b039091166001600160a01b0319821681178355928401519394508493919283916001600160a81b03191617600160a01b8360028111156101f7576101f76104d9565b02179055506040919091015160019182015560035461021591610623565b600355505050565b604080516060810182526000808252602082018190529181019190915260008281526005602090815260409182902082516060810190935280546001600160a01b03811684529091830190600160a01b900460ff166002811115610283576102836104d9565b6002811115610294576102946104d9565b81526020016001820154815250509050919050565b6040805160608082018352600080835260208084018290528385018290528451928301855281835282018190528184018181529385015190935290915b6003548110156103d55783602001516002811115610306576103066104d9565b600082815260056020526040902054600160a01b900460ff166002811115610330576103306104d9565b148015610353575060408083015160008381526005602052919091206001015411155b156103c35760008181526005602090815260409182902082516060810190935280546001600160a01b03811684529091830190600160a01b900460ff1660028111156103a1576103a16104d9565b60028111156103b2576103b26104d9565b815260200160018201548152505091505b806103cd8161063b565b9150506102e6565b5092915050565b600080836001600160a01b03168360405160006040518083038185875af1925050503d806000811461042a576040519150601f19603f3d011682016040523d82523d6000602084013e61042f565b606091505b50915091508161047c5760405162461bcd60e51b81526020600482015260146024820152732330b4b632b2103a379039b2b7321022ba3432b960611b604482015260640160405180910390fd5b50505050565b80356003811061049157600080fd5b919050565b600080604083850312156104a957600080fd5b6104b283610482565b946020939093013593505050565b6000602082840312156104d257600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b81516001600160a01b03168152602082015160608201906003811061052457634e487b7160e01b600052602160045260246000fd5b806020840152506040830151604083015292915050565b80356001600160a01b038116811461049157600080fd5b60006080828403121561056457600080fd5b6040516080810181811067ffffffffffffffff8211171561059557634e487b7160e01b600052604160045260246000fd5b6040526105a18361053b565b81526105af60208401610482565b602082015260408301356040820152606083013560608201528091505092915050565b600080604083850312156105e557600080fd5b6104b28361053b565b634e487b7160e01b600052601160045260246000fd5b600081600019048311821515161561061e5761061e6105ee565b500290565b60008219821115610636576106366105ee565b500190565b60006001820161064d5761064d6105ee565b506001019056fea2646970667358221220c7a3038928289839ce792f1a7a1c91a551ee4e45e9ed9401f593e7c572bf13b064736f6c634300080f0033",
+    "sourceMap": "164:2439:15:-:0;;;214:1:13;192:23;;275:19;255:39;;274:1:15;251:24;;620:167;;;;;;;;;;;;;;;;;;:::i;:::-;700:5;:10;708:2;700:5;:10;:::i;:::-;-1:-1:-1;723:7:15;:22;;-1:-1:-1;;;;;;723:22:15;-1:-1:-1;;;;;723:22:15;;;;;;;;;;-1:-1:-1;164:2439:15;;14:127:19;75:10;70:3;66:20;63:1;56:31;106:4;103:1;96:15;130:4;127:1;120:15;146:185;233:13;;-1:-1:-1;;;;;275:31:19;;265:42;;255:70;;321:1;318;311:12;255:70;146:185;;;:::o;336:1190::-;433:6;441;494:2;482:9;473:7;469:23;465:32;462:52;;;510:1;507;500:12;462:52;537:16;;-1:-1:-1;;;;;602:14:19;;;599:34;;;629:1;626;619:12;599:34;667:6;656:9;652:22;642:32;;712:7;705:4;701:2;697:13;693:27;683:55;;734:1;731;724:12;683:55;763:2;757:9;785:2;781;778:10;775:36;;;791:18;;:::i;:::-;866:2;860:9;834:2;920:13;;-1:-1:-1;;916:22:19;;;940:2;912:31;908:40;896:53;;;964:18;;;984:22;;;961:46;958:72;;;1010:18;;:::i;:::-;1050:10;1046:2;1039:22;1085:2;1077:6;1070:18;1107:4;1097:14;;1148:7;1143:2;1138;1134;1130:11;1126:20;1123:33;1120:53;;;1169:1;1166;1159:12;1120:53;1191:1;1182:10;;1201:129;1215:2;1212:1;1209:9;1201:129;;;1303:10;;;1299:19;;1293:26;1272:14;;;1268:23;;1261:59;1226:10;;;;1201:129;;;1348:2;1345:1;1342:9;1339:80;;;1407:1;1402:2;1397;1389:6;1385:15;1381:24;1374:35;1339:80;1438:6;-1:-1:-1;1463:57:19;;-1:-1:-1;;1501:18:19;;;1463:57;:::i;:::-;1453:67;;;;336:1190;;;;;:::o;1531:380::-;1610:1;1606:12;;;;1653;;;1674:61;;1728:4;1720:6;1716:17;1706:27;;1674:61;1781:2;1773:6;1770:14;1750:18;1747:38;1744:161;;1827:10;1822:3;1818:20;1815:1;1808:31;1862:4;1859:1;1852:15;1890:4;1887:1;1880:15;1744:161;;1531:380;;;:::o;2042:545::-;2144:2;2139:3;2136:11;2133:448;;;2180:1;2205:5;2201:2;2194:17;2250:4;2246:2;2236:19;2320:2;2308:10;2304:19;2301:1;2297:27;2291:4;2287:38;2356:4;2344:10;2341:20;2338:47;;;-1:-1:-1;2379:4:19;2338:47;2434:2;2429:3;2425:12;2422:1;2418:20;2412:4;2408:31;2398:41;;2489:82;2507:2;2500:5;2497:13;2489:82;;;2552:17;;;2533:1;2522:13;2489:82;;;2493:3;;;2133:448;2042:545;;;:::o;2763:1352::-;2883:10;;-1:-1:-1;;;;;2905:30:19;;2902:56;;;2938:18;;:::i;:::-;2967:97;3057:6;3017:38;3049:4;3043:11;3017:38;:::i;:::-;3011:4;2967:97;:::i;:::-;3119:4;;3183:2;3172:14;;3200:1;3195:663;;;;3902:1;3919:6;3916:89;;;-1:-1:-1;3971:19:19;;;3965:26;3916:89;-1:-1:-1;;2720:1:19;2716:11;;;2712:24;2708:29;2698:40;2744:1;2740:11;;;2695:57;4018:81;;3165:944;;3195:663;1989:1;1982:14;;;2026:4;2013:18;;-1:-1:-1;;3231:20:19;;;3349:236;3363:7;3360:1;3357:14;3349:236;;;3452:19;;;3446:26;3431:42;;3544:27;;;;3512:1;3500:14;;;;3379:19;;3349:236;;;3353:3;3613:6;3604:7;3601:19;3598:201;;;3674:19;;;3668:26;-1:-1:-1;;3757:1:19;3753:14;;;3769:3;3749:24;3745:37;3741:42;3726:58;3711:74;;3598:201;-1:-1:-1;;;;;3845:1:19;3829:14;;;3825:22;3812:36;;-1:-1:-1;2763:1352:19:o;:::-;164:2439:15;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052600436106100745760003560e01c806385fae6021161004e57806385fae602146100de578063bb25d76a1461010b578063e35fd0c71461012b578063f5ac85921461013e57600080fd5b806317ee895f14610080578063335f1b37146100a25780636a0eb96c146100c957600080fd5b3661007b57005b600080fd5b34801561008c57600080fd5b506100a061009b366004610496565b610153565b005b3480156100ae57600080fd5b504260008190555b6040519081526020015b60405180910390f35b3480156100d557600080fd5b506000546100b6565b3480156100ea57600080fd5b506100fe6100f93660046104c0565b61021d565b6040516100c091906104ef565b34801561011757600080fd5b506100fe610126366004610552565b6102a9565b6100a06101393660046105d2565b6103dc565b34801561014a57600080fd5b506003546100b6565b60006040518060600160405280306001600160a01b03168152602001846002811115610181576101816104d9565b8152602001600154846101949190610604565b90526003546000908152600560209081526040909120825181546001600160a01b039091166001600160a01b0319821681178355928401519394508493919283916001600160a81b03191617600160a01b8360028111156101f7576101f76104d9565b02179055506040919091015160019182015560035461021591610623565b600355505050565b604080516060810182526000808252602082018190529181019190915260008281526005602090815260409182902082516060810190935280546001600160a01b03811684529091830190600160a01b900460ff166002811115610283576102836104d9565b6002811115610294576102946104d9565b81526020016001820154815250509050919050565b6040805160608082018352600080835260208084018290528385018290528451928301855281835282018190528184018181529385015190935290915b6003548110156103d55783602001516002811115610306576103066104d9565b600082815260056020526040902054600160a01b900460ff166002811115610330576103306104d9565b148015610353575060408083015160008381526005602052919091206001015411155b156103c35760008181526005602090815260409182902082516060810190935280546001600160a01b03811684529091830190600160a01b900460ff1660028111156103a1576103a16104d9565b60028111156103b2576103b26104d9565b815260200160018201548152505091505b806103cd8161063b565b9150506102e6565b5092915050565b600080836001600160a01b03168360405160006040518083038185875af1925050503d806000811461042a576040519150601f19603f3d011682016040523d82523d6000602084013e61042f565b606091505b50915091508161047c5760405162461bcd60e51b81526020600482015260146024820152732330b4b632b2103a379039b2b7321022ba3432b960611b604482015260640160405180910390fd5b50505050565b80356003811061049157600080fd5b919050565b600080604083850312156104a957600080fd5b6104b283610482565b946020939093013593505050565b6000602082840312156104d257600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b81516001600160a01b03168152602082015160608201906003811061052457634e487b7160e01b600052602160045260246000fd5b806020840152506040830151604083015292915050565b80356001600160a01b038116811461049157600080fd5b60006080828403121561056457600080fd5b6040516080810181811067ffffffffffffffff8211171561059557634e487b7160e01b600052604160045260246000fd5b6040526105a18361053b565b81526105af60208401610482565b602082015260408301356040820152606083013560608201528091505092915050565b600080604083850312156105e557600080fd5b6104b28361053b565b634e487b7160e01b600052601160045260246000fd5b600081600019048311821515161561061e5761061e6105ee565b500290565b60008219821115610636576106366105ee565b500190565b60006001820161064d5761064d6105ee565b506001019056fea2646970667358221220c7a3038928289839ce792f1a7a1c91a551ee4e45e9ed9401f593e7c572bf13b064736f6c634300080f0033",
+    "sourceMap": "164:2439:15:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1875:638;;;;;;;;;;-1:-1:-1;1875:638:15;;;;;:::i;:::-;;:::i;:::-;;1208:121:13;;;;;;;;;;-1:-1:-1;1277:15:13;1243:7;1263:29;;;1208:121;;;581:25:19;;;569:2;554:18;1208:121:13;;;;;;;;1728:90;;;;;;;;;;-1:-1:-1;1772:7:13;1799:11;1728:90;;795:253:15;;;;;;;;;;-1:-1:-1;795:253:15;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;1446:419::-;;;;;;;;;;-1:-1:-1;1446:419:15;;;;;:::i;:::-;;:::i;1366:328:13:-;;;;;;:::i;:::-;;:::i;1113:97:15:-;;;;;;;;;;-1:-1:-1;1186:15:15;;1113:97;;1875:638;1962:33;1998:400;;;;;;;;2053:4;-1:-1:-1;;;;;1998:400:15;;;;;2326:1;1998:400;;;;;;;;:::i;:::-;;;;;2353:9;;2349:1;:13;;;;:::i;:::-;1998:400;;2422:15;;2411:27;;;;:10;:27;;;;;;;;:42;;;;-1:-1:-1;;;;;2411:42:15;;;-1:-1:-1;;;;;;2411:42:15;;;;;;;;;;1962:436;;-1:-1:-1;1962:436:15;;2411:27;;;;-1:-1:-1;;;;;;2411:42:15;;-1:-1:-1;;;2411:42:15;;;;;;;;;:::i;:::-;;;;;-1:-1:-1;2411:42:15;;;;;;;;;;;2484:15;;:19;;;:::i;:::-;2466:15;:37;-1:-1:-1;;;1875:638:15:o;795:253::-;-1:-1:-1;;;;;;;;;;;;;;;;;;;;;;;;;1014:26:15;;;;:10;:26;;;;;;;;;1007:33;;;;;;;;;;-1:-1:-1;;;;;1007:33:15;;;;1014:26;;1007:33;;;-1:-1:-1;;;1007:33:15;;;;;;;;;;;;:::i;:::-;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;795:253;;;:::o;1446:419::-;-1:-1:-1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1595:6:15;;;;1580:21;;;-1:-1:-1;;1614:216:15;1630:15;;1628:1;:17;1614:216;;;1716:1;:3;;;1684:35;;;;;;;;:::i;:::-;:13;;;;:10;:13;;;;;:28;-1:-1:-1;;;1684:28:15;;;;:35;;;;;;;;:::i;:::-;;:74;;;;-1:-1:-1;1746:12:15;;;;;1723:13;;;;:10;:13;;;;;;:19;;;:35;;1684:74;1681:136;;;1788:13;;;;:10;:13;;;;;;;;;1779:22;;;;;;;;;;-1:-1:-1;;;;;1779:22:15;;;;1788:13;;1779:22;;;-1:-1:-1;;;1779:22:15;;;;;;;;;;;;:::i;:::-;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;1681:136;1647:3;;;;:::i;:::-;;;;1614:216;;;-1:-1:-1;1849:6:15;1446:419;-1:-1:-1;;1446:419:15:o;1366:328:13:-;1579:9;1590:17;1611:3;-1:-1:-1;;;;;1611:8:13;1627:6;1611:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1578:60;;;;1657:4;1649:37;;;;-1:-1:-1;;;1649:37:13;;3753:2:19;1649:37:13;;;3735:21:19;3792:2;3772:18;;;3765:30;-1:-1:-1;;;3811:18:19;;;3804:50;3871:18;;1649:37:13;;;;;;;;1436:258;;1366:328;;:::o;14:145:19:-;84:20;;133:1;123:12;;113:40;;149:1;146;139:12;113:40;14:145;;;:::o;164:266::-;242:6;250;303:2;291:9;282:7;278:23;274:32;271:52;;;319:1;316;309:12;271:52;342:31;363:9;342:31;:::i;:::-;332:41;420:2;405:18;;;;392:32;;-1:-1:-1;;;164:266:19:o;617:180::-;676:6;729:2;717:9;708:7;704:23;700:32;697:52;;;745:1;742;735:12;697:52;-1:-1:-1;768:23:19;;617:180;-1:-1:-1;617:180:19:o;802:127::-;863:10;858:3;854:20;851:1;844:31;894:4;891:1;884:15;918:4;915:1;908:15;934:600;1166:13;;-1:-1:-1;;;;;1162:39:19;1144:58;;1249:4;1237:17;;1231:24;1132:2;1117:18;;;1291:1;1274:19;;1264:150;;1336:10;1331:3;1327:20;1324:1;1317:31;1371:4;1368:1;1361:15;1399:4;1396:1;1389:15;1264:150;1452:12;1445:4;1434:9;1430:20;1423:42;;1521:4;1513:6;1509:17;1503:24;1496:4;1485:9;1481:20;1474:54;934:600;;;;:::o;1539:181::-;1615:20;;-1:-1:-1;;;;;1664:31:19;;1654:42;;1644:70;;1710:1;1707;1700:12;1725:758;1810:6;1863:3;1851:9;1842:7;1838:23;1834:33;1831:53;;;1880:1;1877;1870:12;1831:53;1913:2;1907:9;1955:3;1947:6;1943:16;2025:6;2013:10;2010:22;1989:18;1977:10;1974:34;1971:62;1968:185;;;2075:10;2070:3;2066:20;2063:1;2056:31;2110:4;2107:1;2100:15;2138:4;2135:1;2128:15;1968:185;2169:2;2162:22;2208:37;2235:9;2208:37;:::i;:::-;2200:6;2193:53;2279:40;2315:2;2304:9;2300:18;2279:40;:::i;:::-;2274:2;2266:6;2262:15;2255:65;2381:2;2370:9;2366:18;2353:32;2348:2;2340:6;2336:15;2329:57;2447:2;2436:9;2432:18;2419:32;2414:2;2406:6;2402:15;2395:57;2471:6;2461:16;;;1725:758;;;;:::o;2488:270::-;2564:6;2572;2625:2;2613:9;2604:7;2600:23;2596:32;2593:52;;;2641:1;2638;2631:12;2593:52;2664:37;2691:9;2664:37;:::i;2763:127::-;2824:10;2819:3;2815:20;2812:1;2805:31;2855:4;2852:1;2845:15;2879:4;2876:1;2869:15;2895:168;2935:7;3001:1;2997;2993:6;2989:14;2986:1;2983:21;2978:1;2971:9;2964:17;2960:45;2957:71;;;3008:18;;:::i;:::-;-1:-1:-1;3048:9:19;;2895:168::o;3068:128::-;3108:3;3139:1;3135:6;3132:1;3129:13;3126:39;;;3145:18;;:::i;:::-;-1:-1:-1;3181:9:19;;3068:128::o;3201:135::-;3240:3;3261:17;;;3258:43;;3281:18;;:::i;:::-;-1:-1:-1;3328:1:19;3317:13;;3201:135::o",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "getInsurance(uint256)": "85fae602",
+    "getRequest((address,uint8,uint256,uint256))": "bb25d76a",
+    "getTotInsurances()": "f5ac8592",
+    "nowTime()": "335f1b37",
+    "retrieveTime()": "6a0eb96c",
+    "sendDeposit(address,uint256)": "e35fd0c7",
+    "setInsurance(uint8,uint256)": "17ee895f"
+  },
+  "ast": {
+    "absolutePath": "src\\InsuranceProvider.sol",
+    "id": 21810,
+    "exportedSymbols": {
+      "InsuranceProvider": [
+        21809
+      ],
+      "Shared": [
+        39601
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "40:2563:15",
+    "nodes": [
+      {
+        "id": 21656,
+        "nodeType": "PragmaDirective",
+        "src": "40:24:15",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".13"
+        ]
+      },
+      {
+        "id": 21657,
+        "nodeType": "ImportDirective",
+        "src": "138:22:15",
+        "absolutePath": "src/Shared.sol",
+        "file": "./Shared.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21810,
+        "sourceUnit": 39602,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21809,
+        "nodeType": "ContractDefinition",
+        "src": "164:2439:15",
+        "nodes": [
+          {
+            "id": 21661,
+            "nodeType": "VariableDeclaration",
+            "src": "210:12:15",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "nameP",
+            "nameLocation": "217:5:15",
+            "scope": 21809,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 21660,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "210:6:15",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21664,
+            "nodeType": "VariableDeclaration",
+            "src": "251:24:15",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "insurance_index",
+            "nameLocation": "256:15:15",
+            "scope": 21809,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 21662,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "251:4:15",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "30",
+              "id": 21663,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "274:1:15",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21666,
+            "nodeType": "VariableDeclaration",
+            "src": "514:15:15",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "handler",
+            "nameLocation": "522:7:15",
+            "scope": 21809,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 21665,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "514:7:15",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21671,
+            "nodeType": "VariableDeclaration",
+            "src": "542:41:15",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "insurances",
+            "nameLocation": "573:10:15",
+            "scope": 21809,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+              "typeString": "mapping(uint256 => struct Shared.InsuranceItem)"
+            },
+            "typeName": {
+              "id": 21670,
+              "keyType": {
+                "id": 21667,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "550:4:15",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "542:30:15",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                "typeString": "mapping(uint256 => struct Shared.InsuranceItem)"
+              },
+              "valueType": {
+                "id": 21669,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 21668,
+                  "name": "InsuranceItem",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 39533,
+                  "src": "558:13:15"
+                },
+                "referencedDeclaration": 39533,
+                "src": "558:13:15",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage_ptr",
+                  "typeString": "struct Shared.InsuranceItem"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21687,
+            "nodeType": "FunctionDefinition",
+            "src": "620:167:15",
+            "body": {
+              "id": 21686,
+              "nodeType": "Block",
+              "src": "689:98:15",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 21680,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21678,
+                      "name": "nameP",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21661,
+                      "src": "700:5:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 21679,
+                      "name": "nP",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21673,
+                      "src": "708:2:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "700:10:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 21681,
+                  "nodeType": "ExpressionStatement",
+                  "src": "700:10:15"
+                },
+                {
+                  "expression": {
+                    "id": 21684,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21682,
+                      "name": "handler",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21666,
+                      "src": "723:7:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 21683,
+                      "name": "_handlerAddr",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21675,
+                      "src": "733:12:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "723:22:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 21685,
+                  "nodeType": "ExpressionStatement",
+                  "src": "723:22:15"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 21676,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21673,
+                  "mutability": "mutable",
+                  "name": "nP",
+                  "nameLocation": "647:2:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21687,
+                  "src": "633:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 21672,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "633:6:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21675,
+                  "mutability": "mutable",
+                  "name": "_handlerAddr",
+                  "nameLocation": "667:12:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21687,
+                  "src": "651:28:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address_payable",
+                    "typeString": "address payable"
+                  },
+                  "typeName": {
+                    "id": 21674,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "651:15:15",
+                    "stateMutability": "payable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address_payable",
+                      "typeString": "address payable"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "632:48:15"
+            },
+            "returnParameters": {
+              "id": 21677,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "689:0:15"
+            },
+            "scope": 21809,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21700,
+            "nodeType": "FunctionDefinition",
+            "src": "795:253:15",
+            "body": {
+              "id": 21699,
+              "nodeType": "Block",
+              "src": "881:167:15",
+              "statements": [
+                {
+                  "expression": {
+                    "baseExpression": {
+                      "id": 21695,
+                      "name": "insurances",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21671,
+                      "src": "1014:10:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                        "typeString": "mapping(uint256 => struct Shared.InsuranceItem storage ref)"
+                      }
+                    },
+                    "id": 21697,
+                    "indexExpression": {
+                      "id": 21696,
+                      "name": "retrieve_index",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21689,
+                      "src": "1025:14:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1014:26:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                      "typeString": "struct Shared.InsuranceItem storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 21694,
+                  "id": 21698,
+                  "nodeType": "Return",
+                  "src": "1007:33:15"
+                }
+              ]
+            },
+            "functionSelector": "85fae602",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getInsurance",
+            "nameLocation": "804:12:15",
+            "parameters": {
+              "id": 21690,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21689,
+                  "mutability": "mutable",
+                  "name": "retrieve_index",
+                  "nameLocation": "822:14:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21700,
+                  "src": "817:19:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 21688,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "817:4:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "816:21:15"
+            },
+            "returnParameters": {
+              "id": 21694,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21693,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21700,
+                  "src": "859:20:15",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                    "typeString": "struct Shared.InsuranceItem"
+                  },
+                  "typeName": {
+                    "id": 21692,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21691,
+                      "name": "InsuranceItem",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 39533,
+                      "src": "859:13:15"
+                    },
+                    "referencedDeclaration": 39533,
+                    "src": "859:13:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage_ptr",
+                      "typeString": "struct Shared.InsuranceItem"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "858:22:15"
+            },
+            "scope": 21809,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21708,
+            "nodeType": "FunctionDefinition",
+            "src": "1113:97:15",
+            "body": {
+              "id": 21707,
+              "nodeType": "Block",
+              "src": "1168:42:15",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 21705,
+                    "name": "insurance_index",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 21664,
+                    "src": "1186:15:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 21704,
+                  "id": 21706,
+                  "nodeType": "Return",
+                  "src": "1179:22:15"
+                }
+              ]
+            },
+            "functionSelector": "f5ac8592",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getTotInsurances",
+            "nameLocation": "1122:16:15",
+            "parameters": {
+              "id": 21701,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1138:2:15"
+            },
+            "returnParameters": {
+              "id": 21704,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21703,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21708,
+                  "src": "1162:4:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 21702,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1162:4:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1161:6:15"
+            },
+            "scope": 21809,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21766,
+            "nodeType": "FunctionDefinition",
+            "src": "1446:419:15",
+            "body": {
+              "id": 21765,
+              "nodeType": "Block",
+              "src": "1527:338:15",
+              "statements": [
+                {
+                  "assignments": [
+                    21719
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 21719,
+                      "mutability": "mutable",
+                      "name": "winner",
+                      "nameLocation": "1561:6:15",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 21765,
+                      "src": "1540:27:15",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                        "typeString": "struct Shared.InsuranceItem"
+                      },
+                      "typeName": {
+                        "id": 21718,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 21717,
+                          "name": "InsuranceItem",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 39533,
+                          "src": "1540:13:15"
+                        },
+                        "referencedDeclaration": 39533,
+                        "src": "1540:13:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage_ptr",
+                          "typeString": "struct Shared.InsuranceItem"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 21720,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1540:27:15"
+                },
+                {
+                  "expression": {
+                    "id": 21726,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 21721,
+                        "name": "winner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21719,
+                        "src": "1580:6:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                          "typeString": "struct Shared.InsuranceItem memory"
+                        }
+                      },
+                      "id": 21723,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "price",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 39532,
+                      "src": "1580:12:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 21724,
+                        "name": "r",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21711,
+                        "src": "1595:1:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Request_$39543_memory_ptr",
+                          "typeString": "struct Shared.Request memory"
+                        }
+                      },
+                      "id": 21725,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "maxp",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 39540,
+                      "src": "1595:6:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1580:21:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 21727,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1580:21:15"
+                },
+                {
+                  "body": {
+                    "id": 21761,
+                    "nodeType": "Block",
+                    "src": "1652:178:15",
+                    "statements": [
+                      {
+                        "condition": {
+                          "commonType": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "id": 21752,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "commonType": {
+                              "typeIdentifier": "t_enum$_Type_$39525",
+                              "typeString": "enum Shared.Type"
+                            },
+                            "id": 21744,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "leftExpression": {
+                              "expression": {
+                                "baseExpression": {
+                                  "id": 21738,
+                                  "name": "insurances",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 21671,
+                                  "src": "1684:10:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                                    "typeString": "mapping(uint256 => struct Shared.InsuranceItem storage ref)"
+                                  }
+                                },
+                                "id": 21740,
+                                "indexExpression": {
+                                  "id": 21739,
+                                  "name": "i",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 21729,
+                                  "src": "1695:1:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  }
+                                },
+                                "isConstant": false,
+                                "isLValue": true,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "nodeType": "IndexAccess",
+                                "src": "1684:13:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                                  "typeString": "struct Shared.InsuranceItem storage ref"
+                                }
+                              },
+                              "id": 21741,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "insurance_type",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 39530,
+                              "src": "1684:28:15",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_enum$_Type_$39525",
+                                "typeString": "enum Shared.Type"
+                              }
+                            },
+                            "nodeType": "BinaryOperation",
+                            "operator": "==",
+                            "rightExpression": {
+                              "expression": {
+                                "id": 21742,
+                                "name": "r",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 21711,
+                                "src": "1716:1:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_Request_$39543_memory_ptr",
+                                  "typeString": "struct Shared.Request memory"
+                                }
+                              },
+                              "id": 21743,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "t",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 39538,
+                              "src": "1716:3:15",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_enum$_Type_$39525",
+                                "typeString": "enum Shared.Type"
+                              }
+                            },
+                            "src": "1684:35:15",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bool",
+                              "typeString": "bool"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "&&",
+                          "rightExpression": {
+                            "commonType": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "id": 21751,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "leftExpression": {
+                              "expression": {
+                                "baseExpression": {
+                                  "id": 21745,
+                                  "name": "insurances",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 21671,
+                                  "src": "1723:10:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                                    "typeString": "mapping(uint256 => struct Shared.InsuranceItem storage ref)"
+                                  }
+                                },
+                                "id": 21747,
+                                "indexExpression": {
+                                  "id": 21746,
+                                  "name": "i",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 21729,
+                                  "src": "1734:1:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  }
+                                },
+                                "isConstant": false,
+                                "isLValue": true,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "nodeType": "IndexAccess",
+                                "src": "1723:13:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                                  "typeString": "struct Shared.InsuranceItem storage ref"
+                                }
+                              },
+                              "id": 21748,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "price",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 39532,
+                              "src": "1723:19:15",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "nodeType": "BinaryOperation",
+                            "operator": "<=",
+                            "rightExpression": {
+                              "expression": {
+                                "id": 21749,
+                                "name": "winner",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 21719,
+                                "src": "1746:6:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                                  "typeString": "struct Shared.InsuranceItem memory"
+                                }
+                              },
+                              "id": 21750,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "price",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 39532,
+                              "src": "1746:12:15",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "src": "1723:35:15",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bool",
+                              "typeString": "bool"
+                            }
+                          },
+                          "src": "1684:74:15",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "id": 21760,
+                        "nodeType": "IfStatement",
+                        "src": "1681:136:15",
+                        "trueBody": {
+                          "id": 21759,
+                          "nodeType": "Block",
+                          "src": "1760:57:15",
+                          "statements": [
+                            {
+                              "expression": {
+                                "id": 21757,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "leftHandSide": {
+                                  "id": 21753,
+                                  "name": "winner",
+                                  "nodeType": "Identifier",
+                                  "overloadedDeclarations": [],
+                                  "referencedDeclaration": 21719,
+                                  "src": "1779:6:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                                    "typeString": "struct Shared.InsuranceItem memory"
+                                  }
+                                },
+                                "nodeType": "Assignment",
+                                "operator": "=",
+                                "rightHandSide": {
+                                  "baseExpression": {
+                                    "id": 21754,
+                                    "name": "insurances",
+                                    "nodeType": "Identifier",
+                                    "overloadedDeclarations": [],
+                                    "referencedDeclaration": 21671,
+                                    "src": "1788:10:15",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                                      "typeString": "mapping(uint256 => struct Shared.InsuranceItem storage ref)"
+                                    }
+                                  },
+                                  "id": 21756,
+                                  "indexExpression": {
+                                    "id": 21755,
+                                    "name": "i",
+                                    "nodeType": "Identifier",
+                                    "overloadedDeclarations": [],
+                                    "referencedDeclaration": 21729,
+                                    "src": "1799:1:15",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "nodeType": "IndexAccess",
+                                  "src": "1788:13:15",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                                    "typeString": "struct Shared.InsuranceItem storage ref"
+                                  }
+                                },
+                                "src": "1779:22:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                                  "typeString": "struct Shared.InsuranceItem memory"
+                                }
+                              },
+                              "id": 21758,
+                              "nodeType": "ExpressionStatement",
+                              "src": "1779:22:15"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 21734,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 21732,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21729,
+                      "src": "1628:1:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "id": 21733,
+                      "name": "insurance_index",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21664,
+                      "src": "1630:15:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1628:17:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 21762,
+                  "initializationExpression": {
+                    "assignments": [
+                      21729
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 21729,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "1623:1:15",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 21762,
+                        "src": "1618:6:15",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 21728,
+                          "name": "uint",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1618:4:15",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 21731,
+                    "initialValue": {
+                      "hexValue": "30",
+                      "id": 21730,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1625:1:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "1618:8:15"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 21736,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "1647:3:15",
+                      "subExpression": {
+                        "id": 21735,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21729,
+                        "src": "1647:1:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 21737,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1647:3:15"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "1614:216:15"
+                },
+                {
+                  "expression": {
+                    "id": 21763,
+                    "name": "winner",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 21719,
+                    "src": "1849:6:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                      "typeString": "struct Shared.InsuranceItem memory"
+                    }
+                  },
+                  "functionReturnParameters": 21716,
+                  "id": 21764,
+                  "nodeType": "Return",
+                  "src": "1842:13:15"
+                }
+              ]
+            },
+            "functionSelector": "bb25d76a",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getRequest",
+            "nameLocation": "1455:10:15",
+            "parameters": {
+              "id": 21712,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21711,
+                  "mutability": "mutable",
+                  "name": "r",
+                  "nameLocation": "1481:1:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21766,
+                  "src": "1466:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Request_$39543_memory_ptr",
+                    "typeString": "struct Shared.Request"
+                  },
+                  "typeName": {
+                    "id": 21710,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21709,
+                      "name": "Request",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 39543,
+                      "src": "1466:7:15"
+                    },
+                    "referencedDeclaration": 39543,
+                    "src": "1466:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Request_$39543_storage_ptr",
+                      "typeString": "struct Shared.Request"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1465:18:15"
+            },
+            "returnParameters": {
+              "id": 21716,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21715,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21766,
+                  "src": "1505:20:15",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                    "typeString": "struct Shared.InsuranceItem"
+                  },
+                  "typeName": {
+                    "id": 21714,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21713,
+                      "name": "InsuranceItem",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 39533,
+                      "src": "1505:13:15"
+                    },
+                    "referencedDeclaration": 39533,
+                    "src": "1505:13:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage_ptr",
+                      "typeString": "struct Shared.InsuranceItem"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1504:22:15"
+            },
+            "scope": 21809,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21804,
+            "nodeType": "FunctionDefinition",
+            "src": "1875:638:15",
+            "body": {
+              "id": 21803,
+              "nodeType": "Block",
+              "src": "1923:590:15",
+              "statements": [
+                {
+                  "assignments": [
+                    21776
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 21776,
+                      "mutability": "mutable",
+                      "name": "newInsurance",
+                      "nameLocation": "1983:12:15",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 21803,
+                      "src": "1962:33:15",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                        "typeString": "struct Shared.InsuranceItem"
+                      },
+                      "typeName": {
+                        "id": 21775,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 21774,
+                          "name": "InsuranceItem",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 39533,
+                          "src": "1962:13:15"
+                        },
+                        "referencedDeclaration": 39533,
+                        "src": "1962:13:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage_ptr",
+                          "typeString": "struct Shared.InsuranceItem"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 21790,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "arguments": [
+                              {
+                                "id": 21782,
+                                "name": "this",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": -28,
+                                "src": "2053:4:15",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_contract$_InsuranceProvider_$21809",
+                                  "typeString": "contract InsuranceProvider"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_contract$_InsuranceProvider_$21809",
+                                  "typeString": "contract InsuranceProvider"
+                                }
+                              ],
+                              "id": 21781,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "nodeType": "ElementaryTypeNameExpression",
+                              "src": "2045:7:15",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_address_$",
+                                "typeString": "type(address)"
+                              },
+                              "typeName": {
+                                "id": 21780,
+                                "name": "address",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "2045:7:15",
+                                "typeDescriptions": {}
+                              }
+                            },
+                            "id": 21783,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "typeConversion",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "2045:13:15",
+                            "tryCall": false,
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 21779,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "2037:8:15",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_payable_$",
+                            "typeString": "type(address payable)"
+                          },
+                          "typeName": {
+                            "id": 21778,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "2037:8:15",
+                            "stateMutability": "payable",
+                            "typeDescriptions": {}
+                          }
+                        },
+                        "id": 21784,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "2037:22:15",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "id": 21785,
+                        "name": "t",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21769,
+                        "src": "2326:1:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_enum$_Type_$39525",
+                          "typeString": "enum Shared.Type"
+                        }
+                      },
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 21788,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "id": 21786,
+                          "name": "p",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21771,
+                          "src": "2349:1:15",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "*",
+                        "rightExpression": {
+                          "id": 21787,
+                          "name": "eth_index",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 39521,
+                          "src": "2353:9:15",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "2349:13:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_enum$_Type_$39525",
+                          "typeString": "enum Shared.Type"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 21777,
+                      "name": "InsuranceItem",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 39533,
+                      "src": "1998:13:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_struct$_InsuranceItem_$39533_storage_ptr_$",
+                        "typeString": "type(struct Shared.InsuranceItem storage pointer)"
+                      }
+                    },
+                    "id": 21789,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "structConstructorCall",
+                    "lValueRequested": false,
+                    "names": [
+                      "provider",
+                      "insurance_type",
+                      "price"
+                    ],
+                    "nodeType": "FunctionCall",
+                    "src": "1998:400:15",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                      "typeString": "struct Shared.InsuranceItem memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1962:436:15"
+                },
+                {
+                  "expression": {
+                    "id": 21795,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 21791,
+                        "name": "insurances",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21671,
+                        "src": "2411:10:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsuranceItem_$39533_storage_$",
+                          "typeString": "mapping(uint256 => struct Shared.InsuranceItem storage ref)"
+                        }
+                      },
+                      "id": 21793,
+                      "indexExpression": {
+                        "id": 21792,
+                        "name": "insurance_index",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21664,
+                        "src": "2422:15:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "2411:27:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                        "typeString": "struct Shared.InsuranceItem storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 21794,
+                      "name": "newInsurance",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21776,
+                      "src": "2441:12:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_InsuranceItem_$39533_memory_ptr",
+                        "typeString": "struct Shared.InsuranceItem memory"
+                      }
+                    },
+                    "src": "2411:42:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_InsuranceItem_$39533_storage",
+                      "typeString": "struct Shared.InsuranceItem storage ref"
+                    }
+                  },
+                  "id": 21796,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2411:42:15"
+                },
+                {
+                  "expression": {
+                    "id": 21801,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21797,
+                      "name": "insurance_index",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21664,
+                      "src": "2466:15:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 21800,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "id": 21798,
+                        "name": "insurance_index",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21664,
+                        "src": "2484:15:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "+",
+                      "rightExpression": {
+                        "hexValue": "31",
+                        "id": 21799,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "2502:1:15",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      "src": "2484:19:15",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "2466:37:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 21802,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2466:37:15"
+                }
+              ]
+            },
+            "functionSelector": "17ee895f",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setInsurance",
+            "nameLocation": "1884:12:15",
+            "parameters": {
+              "id": 21772,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21769,
+                  "mutability": "mutable",
+                  "name": "t",
+                  "nameLocation": "1902:1:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21804,
+                  "src": "1897:6:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Type_$39525",
+                    "typeString": "enum Shared.Type"
+                  },
+                  "typeName": {
+                    "id": 21768,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21767,
+                      "name": "Type",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 39525,
+                      "src": "1897:4:15"
+                    },
+                    "referencedDeclaration": 39525,
+                    "src": "1897:4:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_Type_$39525",
+                      "typeString": "enum Shared.Type"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21771,
+                  "mutability": "mutable",
+                  "name": "p",
+                  "nameLocation": "1913:1:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21804,
+                  "src": "1905:9:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 21770,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1905:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1896:19:15"
+            },
+            "returnParameters": {
+              "id": 21773,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1923:0:15"
+            },
+            "scope": 21809,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21808,
+            "nodeType": "FunctionDefinition",
+            "src": "2521:71:15",
+            "body": {
+              "id": 21807,
+              "nodeType": "Block",
+              "src": "2548:44:15",
+              "statements": []
+            },
+            "implemented": true,
+            "kind": "receive",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 21805,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2528:2:15"
+            },
+            "returnParameters": {
+              "id": 21806,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2548:0:15"
+            },
+            "scope": 21809,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 21658,
+              "name": "Shared",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 39601,
+              "src": "194:6:15"
+            },
+            "id": 21659,
+            "nodeType": "InheritanceSpecifier",
+            "src": "194:6:15"
+          }
+        ],
+        "canonicalName": "InsuranceProvider",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          21809,
+          39601
+        ],
+        "name": "InsuranceProvider",
+        "nameLocation": "173:17:15",
+        "scope": 21810,
+        "usedErrors": []
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 15
+}

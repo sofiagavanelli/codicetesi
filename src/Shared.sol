@@ -9,12 +9,14 @@ abstract contract Shared {
     uint256 last_access = 0;
     //**********************/
 
+    uint256 eth_index = 1000000000000000000;
+
     enum Type{A,B,C}
 
     struct InsuranceItem {
         //string provider; //ma perché non wallet address del provider???? - messo address nella tesi
         address payable provider;
-        string id; //why
+        //string id; //why
         Type insurance_type;
         uint256 price;
     }
@@ -30,7 +32,7 @@ abstract contract Shared {
     struct clientInfo{
 
         string name;
-        string id; //si può togliere no? o mettere address al massimo
+        //string id; //si può togliere no? o mettere address al massimo
         //bool gender;
         uint birth;
         string discount_n;
