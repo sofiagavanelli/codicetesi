@@ -306,8 +306,8 @@
       }
     },
     "src\\Client.sol": {
-      "lastModificationDate": 1663921070179,
-      "contentHash": "e4584276e447bb16b6b296e7a0a31d85",
+      "lastModificationDate": 1663941449862,
+      "contentHash": "aa11d205fceb47359a7dc57b51aabaff",
       "sourceName": "src\\Client.sol",
       "solcConfig": {
         "settings": {
@@ -336,7 +336,6 @@
         }
       },
       "imports": [
-        "src\\InsuranceProvider.sol",
         "src\\PurchaseHandler.sol",
         "src\\Shared.sol"
       ],
@@ -348,8 +347,8 @@
       }
     },
     "src\\InsuranceProvider.sol": {
-      "lastModificationDate": 1663836091487,
-      "contentHash": "a44a0720a80c366fa906adf5ef4bab4f",
+      "lastModificationDate": 1663942950270,
+      "contentHash": "76b8d557d569d98df377e3b199a953b2",
       "sourceName": "src\\InsuranceProvider.sol",
       "solcConfig": {
         "settings": {
@@ -378,6 +377,7 @@
         }
       },
       "imports": [
+        "src\\PurchaseHandler.sol",
         "src\\Shared.sol"
       ],
       "versionRequirement": "^0.8.13",
@@ -388,8 +388,8 @@
       }
     },
     "src\\PurchaseHandler.sol": {
-      "lastModificationDate": 1663835994276,
-      "contentHash": "0b7f8e93cc8bc9c1c40e2370db8b7782",
+      "lastModificationDate": 1663942351943,
+      "contentHash": "d1a7770b60724942153da5e67d4239fa",
       "sourceName": "src\\PurchaseHandler.sol",
       "solcConfig": {
         "settings": {
@@ -418,7 +418,6 @@
         }
       },
       "imports": [
-        "src\\InsuranceProvider.sol",
         "src\\Shared.sol"
       ],
       "versionRequirement": "^0.8.13",
@@ -429,8 +428,8 @@
       }
     },
     "src\\Shared.sol": {
-      "lastModificationDate": 1663835894580,
-      "contentHash": "b8f562f8538fd08d6d1856f9f8be997e",
+      "lastModificationDate": 1663940742485,
+      "contentHash": "647eb3e91ffbee4488d459847209afc7",
       "sourceName": "src\\Shared.sol",
       "solcConfig": {
         "settings": {
@@ -466,10 +465,10 @@
         }
       }
     },
-    "test\\BaseSetup.t.sol": {
-      "lastModificationDate": 1663856878931,
-      "contentHash": "4182bda695e84eb6f3d3f020b5655820",
-      "sourceName": "test\\BaseSetup.t.sol",
+    "test\\TestProject.t.sol": {
+      "lastModificationDate": 1663942864732,
+      "contentHash": "7135682bfbb99af95caccc38e6a5c087",
+      "sourceName": "test\\TestProject.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -510,8 +509,8 @@
       ],
       "versionRequirement": "^0.8.13",
       "artifacts": {
-        "BaseSetup": {
-          "0.8.15+commit.e14f2714.Windows.msvc": "BaseSetup.t.sol\\BaseSetup.json"
+        "TestProject": {
+          "0.8.15+commit.e14f2714.Windows.msvc": "TestProject.t.sol\\TestProject.json"
         }
       }
     }

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "./Shared.sol";
-import "./InsuranceProvider.sol";
+//import "./InsuranceProvider.sol";
 
 contract PurchaseHandler is Shared {
     

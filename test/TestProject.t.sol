@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "../lib/forge-std/Test.sol";
+import "forge-std/Test.sol";
 
 import {Client} from "../src/Client.sol";
 import {InsuranceProvider} from "../src/InsuranceProvider.sol";
@@ -19,7 +19,7 @@ contract TestProject is Test {
     InsuranceProvider internal prov1;
     InsuranceProvider internal prov2;
 
-    function setUp() { //metto su tutti i contract
+    function setUp() public { //metto su tutti i contract
 
         handler = new PurchaseHandler();
 
@@ -30,39 +30,40 @@ contract TestProject is Test {
         newClient = new Client("nome1", false, 120367, "prova", payable(address(handler)));
 
         //con uno per uno dà errore (:)
-        providers = [payable(address(prov1)), payable(address(prov2))];
+        //address payable[] memory providers;
+        //providers = [payable(address(prov1)), payable(address(prov2))];
 
-        handler.setProviders(providers);
+        //handler.setProviders(providers);
 
         vm.deal(payable(address(newClient)), 6e18);
 
     }
 
-    function testProvider() {
+    function testProvider() public {
 
         //divento provider
-        prank(address(prov1));
-        setInsurance(Shared.Type(2), 2e18);
+        vm.prank(address(prov1));
+        prov1.setInsurance(Shared.Type(2), 2e18);
 
-        prank(address(prov2));
-        setInsurance(Shared.Type(2), 1e18);
+        vm.prank(address(prov2));
+        prov2.setInsurance(Shared.Type(2), 1e18);
 
     }
 
-    function testClient() returns (IsnuranceItem memory) {
+    function testClient() public returns (Shared.InsuranceItem memory) {
 
-        prank(address(newClient));
-        requestInsurance(1e18, Shared.Type(2),0.25);
+        vm.prank(address(newClient));
+        newClient.requestInsurance(1e18, Shared.Type(2), 1);
 
         console.log((msg.sender).balance);
 
-        vm.warp(0.25 * 3600);
+        vm.warp(1 * 3600);
 
-        uint[] id_prova = getRequestsByClient(msg.sender);
+        uint[] memory id_prova =  handler.getRequestsByClient(address(newClient));
 
-        InsuranceItem acquisto;
+        Shared.InsuranceItem memory acquisto;
         
-        acquisto = buyProposal(id_prova[0]);
+        acquisto = handler.buyProposal(id_prova[0]);
 
         return(acquisto);
 

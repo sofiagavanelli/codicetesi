@@ -2,7 +2,6 @@
 pragma solidity ^0.8.13;
 
 import "./PurchaseHandler.sol";
-import "./Shared.sol";
 
 contract InsuranceProvider is Shared {
 
@@ -25,8 +24,8 @@ contract InsuranceProvider is Shared {
     //funzione che restituisce la migliore insurance per la richiesta fatta
     //ora c'è un solo mapping perché se ne gestiscono poche
     //POSSIBILE MIGLIORIA: DIVERSI MAPPING PER I DIVERSI TIPI -- filtro ""automatico""
-    function putProposal(uint id_R) public {
-
+    function putProposal(uint id_R) private { /*private: non tutti possono invocarla*/
+    
         InsuranceItem memory winner;
 
         Request memory to_control = handler.getRequest(id_R);
@@ -43,25 +42,25 @@ contract InsuranceProvider is Shared {
 
     }
 
-    function setInsuranceForRequest(uint id_R, Type t, uint256 p) public {
+    function setInsuranceForRequest(uint id_R, Type t, uint256 p) private { /*private: non tutti possono invocarla*/
 
         InsuranceItem memory newInsurance = InsuranceItem({
             provider: payable(msg.sender),
             insurance_type: t,
-            price: p * eth_index //per renderlo in ether
+            price: p /* eth_index //per renderlo in ether*/
         });
 
         handler.setProposal(id_R, newInsurance);
 
     }
 
-    function setInsurance(Type t, uint256 p) public {
+    function setInsurance(Type t, uint256 p) private { /*private: non tutti possono invocarla*/
         //add al mapping
 
         InsuranceItem memory newInsurance = InsuranceItem({
             provider: payable(msg.sender), 
             insurance_type: t,
-            price: p * eth_index
+            price: p /** eth_index*/
         });
 
         insurances[insurance_index] = newInsurance;
