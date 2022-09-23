@@ -111,8 +111,8 @@ contract PurchaseHandler is Shared {
         //si deve ancora poter partecipare
         require(last_access < indexed_requests[id_request].scadenza, "tempo scaduto per proposte");
 
-        //prima proposta per questa request
-        if(indexed_requests[id_request].maxp>=_prop.price && indexed_requests[id_request].t>=_prop.insurance_type)
+        //prima proposta per questa request: come fare a controllare??
+        if(indexed_requests[id_request].maxp>=_prop.price && indexed_requests[id_request].t==_prop.insurance_type)
             proposals[id_request] = _prop;
         else {//non c'è già una proposta
 
@@ -131,7 +131,7 @@ contract PurchaseHandler is Shared {
         nowTime();
         
         //è effettivamente passato il tempo?
-        require(last_access > indexed_requests[to_buy].scadenza);
+        require(last_access > indexed_requests[to_buy].scadenza, "non puoi ancora comprare, tempo non scaduto");
 
         //si compra l'assicurazione dal provider
         sendDeposit(proposals[to_buy].provider, proposals[to_buy].price);

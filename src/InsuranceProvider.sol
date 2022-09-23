@@ -24,8 +24,8 @@ contract InsuranceProvider is Shared {
     //funzione che restituisce la migliore insurance per la richiesta fatta
     //ora c'è un solo mapping perché se ne gestiscono poche
     //POSSIBILE MIGLIORIA: DIVERSI MAPPING PER I DIVERSI TIPI -- filtro ""automatico""
-    function putProposal(uint id_R) private { /*private: non tutti possono invocarla*/
-    
+    function putProposal(uint id_R) public {
+
         InsuranceItem memory winner;
 
         Request memory to_control = handler.getRequest(id_R);
@@ -42,7 +42,7 @@ contract InsuranceProvider is Shared {
 
     }
 
-    function setInsuranceForRequest(uint id_R, Type t, uint256 p) private { /*private: non tutti possono invocarla*/
+    function setInsuranceForRequest(uint id_R, Type t, uint256 p) public {
 
         InsuranceItem memory newInsurance = InsuranceItem({
             provider: payable(msg.sender),
@@ -54,7 +54,7 @@ contract InsuranceProvider is Shared {
 
     }
 
-    function setInsurance(Type t, uint256 p) private { /*private: non tutti possono invocarla*/
+    function setInsurance(Type t, uint256 p) public {
         //add al mapping
 
         InsuranceItem memory newInsurance = InsuranceItem({

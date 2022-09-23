@@ -50,20 +50,35 @@ contract TestProject is Test {
 
     }
 
-    function testClient() public returns (Shared.InsuranceItem memory) {
+    function testClient() public {
 
         vm.prank(address(newClient));
-        newClient.requestInsurance(1e18, Shared.Type(2), 1);
+        newClient.requestInsurance(1e18, Shared.Type(2), 3);
 
-        console.log((msg.sender).balance);
+        //vm.prank(address(newClient));
+        //console.log(address(newClient).balance);
 
-        vm.warp(1 * 3600);
+        //vm.warp(1 * 3600);
 
-        uint[] memory id_prova =  handler.getRequestsByClient(address(newClient));
+        //uint[] memory id_prova =  handler.getRequestsByClient(address(newClient));
+
+    }
+
+    function testMakeProposals() public {
+
+        vm.prank(address(prov1));
+        prov1.putProposal(0);
+
+        vm.prank(address(prov2));
+        prov2.setInsuranceForRequest(0, Shared.Type(2), 3e18);
+
+    }
+
+    function testBuy() public returns (Shared.InsuranceItem memory) {
 
         Shared.InsuranceItem memory acquisto;
         
-        acquisto = handler.buyProposal(id_prova[0]);
+        acquisto = handler.buyProposal(0);
 
         return(acquisto);
 
