@@ -30,19 +30,13 @@ abstract contract Shared {
 
     /******************clientInfo(name, id, bday, discount, pending, iban) */
     struct clientInfo{
-
         string name;
-        //string id; //si può togliere no? o mettere address al massimo
-        //bool gender;
         uint birth;
         string discount_n;
 
         uint pending;
         
-        //da decidere se mettere una request qui
-
         address payable _clientWallet;
-        //string clIBAN;
     }
 
      /******************gestione scadenza */
@@ -58,12 +52,6 @@ abstract contract Shared {
         // This is the current recommended method to use.
         (bool sent, bytes memory data) = _to.call{value: _price}("");
         require(sent, "Failed to send Ether");
-    }
-
-    
-    //prob inutile
-    function retrieveTime() public view returns(uint256) {
-        return last_access;
     }
 
 }
