@@ -73,7 +73,7 @@ contract Client is Shared {
 
     function addNewInsurance(uint id_R) public {
 
-        //how to gestire num ass?
+        //how to gestire num ass?        
         InsuranceItem memory newI;
 
         newI = handler.getProposal(id_R);

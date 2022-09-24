@@ -119,7 +119,8 @@ contract PurchaseHandler is Shared {
         else {//non c'è già una proposta
 
             //se il prezzo non è inferiore non la controllo nemmeno
-            require(proposals[id_request].price > _prop.price, "presente assicurazione migliore");
+            require(proposals[id_request].price >= _prop.price, "presente assicurazione migliore");
+            require(proposals[id_request].price != _prop.price, "proposta uguale a quella presente ma tardiva");
 
             if(proposals[id_request].insurance_type == _prop.insurance_type)
                 proposals[id_request] = _prop; 
@@ -176,7 +177,7 @@ contract PurchaseHandler is Shared {
 
     function getProposal(uint _idR) public view returns (InsuranceItem memory) {
 
-        require(proposals[_idR].price == 0, "effettuare prima l'acquisto");
+        require(proposals[_idR].price == 0, "chiamare prima la funzione di acquisto");
         require(msg.sender == indexed_requests[_idR].clientWallet, "solo il cliente richiede la sua assicurazione");
 
         return(proposals[_idR]);
