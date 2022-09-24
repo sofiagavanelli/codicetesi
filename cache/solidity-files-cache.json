@@ -306,8 +306,8 @@
       }
     },
     "src\\Client.sol": {
-      "lastModificationDate": 1663949560949,
-      "contentHash": "aa11d205fceb47359a7dc57b51aabaff",
+      "lastModificationDate": 1664012631183,
+      "contentHash": "dc3b8c9a63d6b3c22e9582a25492abe2",
       "sourceName": "src\\Client.sol",
       "solcConfig": {
         "settings": {
@@ -347,8 +347,8 @@
       }
     },
     "src\\InsuranceProvider.sol": {
-      "lastModificationDate": 1663943546580,
-      "contentHash": "76b8d557d569d98df377e3b199a953b2",
+      "lastModificationDate": 1664013038446,
+      "contentHash": "d94547021b44f3d971d407005aa514f2",
       "sourceName": "src\\InsuranceProvider.sol",
       "solcConfig": {
         "settings": {
@@ -388,8 +388,8 @@
       }
     },
     "src\\PurchaseHandler.sol": {
-      "lastModificationDate": 1663950374081,
-      "contentHash": "7dc3cd9a1345ea964684e97dbdbacdbd",
+      "lastModificationDate": 1664012406495,
+      "contentHash": "a81ac365100fc6d07c69fbcf79377c1d",
       "sourceName": "src\\PurchaseHandler.sol",
       "solcConfig": {
         "settings": {
@@ -428,8 +428,8 @@
       }
     },
     "src\\Shared.sol": {
-      "lastModificationDate": 1663940742485,
-      "contentHash": "647eb3e91ffbee4488d459847209afc7",
+      "lastModificationDate": 1663966477985,
+      "contentHash": "40a8da386cb74f42265f4ad2081579cd",
       "sourceName": "src\\Shared.sol",
       "solcConfig": {
         "settings": {
@@ -466,8 +466,8 @@
       }
     },
     "test\\TestProject.t.sol": {
-      "lastModificationDate": 1663950338780,
-      "contentHash": "089e89a68494a4edde18ff5a5968b420",
+      "lastModificationDate": 1664013118982,
+      "contentHash": "f9414de64521afc9dd139c6255d90f69",
       "sourceName": "test\\TestProject.t.sol",
       "solcConfig": {
         "settings": {

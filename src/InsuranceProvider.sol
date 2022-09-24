@@ -30,7 +30,11 @@ contract InsuranceProvider is Shared {
 
         Request memory to_control = handler.getRequest(id_R);
 
-        for(uint i=0; i<insurance_index; i++) {
+        require(insurance_index >= 1, "non sono ancora state impostate assicurazioni");
+
+        winner = insurances[1];
+
+        for(uint i=1; i<=insurance_index; i++) {
             
             if(insurances[i].insurance_type == to_control.t && insurances[i].price <= winner.price) {
                 winner = insurances[i];
@@ -56,7 +60,8 @@ contract InsuranceProvider is Shared {
 
     function setInsurance(Type t, uint256 p) public {
         //add al mapping
-
+        insurance_index = insurance_index + 1;
+        
         InsuranceItem memory newInsurance = InsuranceItem({
             provider: payable(msg.sender), 
             insurance_type: t,
@@ -64,8 +69,6 @@ contract InsuranceProvider is Shared {
         });
 
         insurances[insurance_index] = newInsurance;
-
-        insurance_index = insurance_index + 1;
 
     }
 

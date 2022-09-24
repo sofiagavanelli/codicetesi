@@ -83,7 +83,9 @@ contract PurchaseHandler is Shared {
 
     //dopo aver settato il cliente (con la prima richiesta) -- non ha senso risettarlo!!!!!!
     //gestire input request
-    function askNewInsurance(Request memory _newRequest) public payable { 
+    function askNewInsurance(Request memory _newRequest) public payable {
+
+        //fare un require del settaggio del client!!
 
         //teoricamente se entri qui avevi i soldi necessari
         require(deposits[msg.sender] >= _newRequest.maxp, "not enough ether sent");
@@ -111,8 +113,8 @@ contract PurchaseHandler is Shared {
         //si deve ancora poter partecipare
         require(last_access < indexed_requests[id_request].scadenza, "tempo scaduto per proposte");
 
-        //prima proposta per questa request: come fare a controllare??
-        if(indexed_requests[id_request].maxp>=_prop.price && indexed_requests[id_request].t==_prop.insurance_type)
+        //prima proposta per questa request: si controlla il prezzo se = 0
+        if(proposals[id_request].price == 0 && (indexed_requests[id_request].maxp>=_prop.price && indexed_requests[id_request].t==_prop.insurance_type))
             proposals[id_request] = _prop;
         else {//non c'è già una proposta
 
@@ -125,13 +127,13 @@ contract PurchaseHandler is Shared {
 
     }
 
-    function buyProposal(uint to_buy) public returns (InsuranceItem memory) {
+    function buyProposal(uint to_buy) public { //returns (InsuranceItem memory) {
         
         //require time
         nowTime();
         
         //è effettivamente passato il tempo?
-        require(last_access > indexed_requests[to_buy].scadenza, "non puoi ancora comprare, tempo non scaduto");
+        require(last_access >= indexed_requests[to_buy].scadenza, "non puoi ancora comprare, tempo non scaduto");
 
         //si compra l'assicurazione dal provider
         sendDeposit(proposals[to_buy].provider, proposals[to_buy].price);
@@ -146,7 +148,9 @@ contract PurchaseHandler is Shared {
         //change = come ho accesso al cliente? per ottenere il suo deposito?
 
         //c'è il return di quella comprata: dove metterla?
-        return proposals[to_buy];
+        //return proposals[to_buy];
+
+        proposals[to_buy].price = 0;
 
     }
 
@@ -169,6 +173,15 @@ contract PurchaseHandler is Shared {
         return(_activeReq);
 
     } 
+
+    function getProposal(uint _idR) public view returns (InsuranceItem memory) {
+
+        require(proposals[_idR].price == 0, "effettuare prima l'acquisto");
+        require(msg.sender == indexed_requests[_idR].clientWallet, "solo il cliente richiede la sua assicurazione");
+
+        return(proposals[_idR]);
+
+    }
 
     // Function to receive Ether. msg.data must be empty
     receive() external payable {

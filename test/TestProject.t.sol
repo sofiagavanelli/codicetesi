@@ -34,23 +34,45 @@ contract TestProject is Test {
         //providers = [payable(address(prov1)), payable(address(prov2))];
 
         //handler.setProviders(providers);
+        //setto il block.timestamp!!
+        vm.warp(1664009449);
 
         vm.deal(payable(address(newClient)), 6e18);
 
     }
 
-    function testProvider() public {
+    function testProject() public { // returns (Shared.InsuranceItem memory) {
 
-        //divento provider
+        //divento provider e aggiungo delle assicurazioni --> 1
         vm.prank(address(prov1));
         prov1.setInsurance(Shared.Type(2), 2e18);
-
+        // --> 2
         vm.prank(address(prov2));
         prov2.setInsurance(Shared.Type(2), 1e18);
+        
+        //richiesta del cliente
+        vm.prank(address(newClient));
+        newClient.requestInsurance(4e18, Shared.Type(2), 3);
+
+        //proposte del provider data la richiesta --> 2
+        vm.prank(address(prov2));
+        prov2.setInsuranceForRequest(0, Shared.Type(2), 3e18); //ne creo una nuova apposta
+        // --> 1
+        vm.prank(address(prov1));
+        prov2.putProposal(0); //do la migliore nel portfolio al momento
+
+        //faccio passare il tempo per poter comprare
+        vm.warp(block.timestamp + (3 hours));
+        
+        //se si rimuove questa chiamata il cliente NON ha accesso all'assicurazione perché NON è stata acquistata
+        handler.buyProposal(0);
+
+        vm.prank(address(newClient));
+        newClient.addNewInsurance(0);
 
     }
 
-    function testClient() public {
+    /*function testClientRequest() public {
 
         vm.prank(address(newClient));
         newClient.requestInsurance(1e18, Shared.Type(2), 3);
@@ -58,23 +80,28 @@ contract TestProject is Test {
         //vm.prank(address(newClient));
         //console.log(address(newClient).balance);
 
-        //vm.warp(1 * 3600);
-
         //uint[] memory id_prova =  handler.getRequestsByClient(address(newClient));
 
     }
 
     function testMakeProposals() public {
 
+        console.log("dentro make proposal:");
+        console.log(block.timestamp);
+
         vm.prank(address(prov1));
-        prov1.putProposal(0);
+        prov1.putProposal(0); //la migliore che c'è adesso
 
         vm.prank(address(prov2));
-        prov2.setInsuranceForRequest(0, Shared.Type(2), 3e18);
+        prov2.setInsuranceForRequest(0, Shared.Type(2), 3e18); //ne creo una nuova apposta
 
     }
 
     function testBuy() public returns (Shared.InsuranceItem memory) {
+
+        //vm.warp(block.timestamp + (3600*3));
+        console.log("dentro test buy");
+        console.log(block.timestamp);
 
         Shared.InsuranceItem memory acquisto;
         
@@ -82,46 +109,6 @@ contract TestProject is Test {
 
         return(acquisto);
 
-    }
-
-
-    /*funzione setup che crea e dà soldi al client
-    poi funzione test purchase
-    test provider con prank per cambiare indirizzo
-    test client
-    test provider con add proposal
-    test buy insurance*/
-
-    /*PurchaseHandler internal handler;
-    Client internal newClient;
-
-    address payable[] internal providers;
-
-    InsuranceProvider internal prov1;
-    InsuranceProvider internal prov2;
-
-    function testUp() public {
-
-        handler = new PurchaseHandler();
-
-        prov1 = new InsuranceProvider("prov1", payable(address(handler)));
-        prov2 = new InsuranceProvider("prov2", payable(address(handler)));
-
-        //new Client(string memory _name,bool _gender, uint _birth, string memory _discount, address payable _handlerAddr)
-        newClient = new Client("nome1", false, 120367, "prova", payable(address(handler)));
-
-        //con uno per uno dà errore (:)
-        providers = [payable(address(prov1)), payable(address(prov2))];
-
-        handler.setProviders(providers);
-
-        //uint _maxpurchase, Type _t, uint _hoursToWait --> Shared.Type(0<=int<=3) è il tipo della enum in shared
-        newClient.requestInsurance(2, Shared.Type(2), 8);
-
-    }*/
-
-    /*function testExample() public {
-        assertTrue(true);
     }*/
 
 }

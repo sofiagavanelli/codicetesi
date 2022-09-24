@@ -26,6 +26,7 @@ contract Client is Shared {
     /* come mantenere le richieste? */
     //tipo portfolio delle richieste di un cliente?
     mapping(uint => InsuranceItem) spendings;
+    uint n_ins = 0;
 
     PurchaseHandler handler;
 
@@ -63,10 +64,23 @@ contract Client is Shared {
             clientWallet: payable(msg.sender),
             t: _t,
             maxp: _maxpurchase, //total,
-            scadenza: last_access + (3600 /*forse si può sostituire con hours*/ * _hoursToWait)
+            scadenza: last_access + (3600 * _hoursToWait) /*forse si può sostituire con hours*/ 
         });
 
         handler.askNewInsurance(newRequest);
+
+    }
+
+    function addNewInsurance(uint id_R) public {
+
+        //how to gestire num ass?
+        InsuranceItem memory newI;
+
+        newI = handler.getProposal(id_R);
+
+        spendings[n_ins] = newI;
+
+        n_ins = n_ins + 1;
 
     }
 
