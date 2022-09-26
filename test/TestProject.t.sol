@@ -20,22 +20,14 @@ contract TestProject is Test {
     InsuranceProvider internal prov1;
     InsuranceProvider internal prov2;
 
-    function setUp() public { //metto su tutti i contract
+    function setUp() public payable { //metto su tutti i contract
 
         handler = new PurchaseHandler();
-
         prov1 = new InsuranceProvider("prov1", payable(address(handler)));
         prov2 = new InsuranceProvider("prov2", payable(address(handler)));
-
-        //new Client(string memory _name,bool _gender, uint _birth, string memory _discount, address payable _handlerAddr)
         firstClient = new Client("mario", false, 120367, "prova", payable(address(handler)));
         secondClient = new Client("luisa", true, 110857, "boh", payable(address(handler)));
 
-        //con uno per uno dà errore (:)
-        //address payable[] memory providers;
-        //providers = [payable(address(prov1)), payable(address(prov2))];
-
-        //handler.setProviders(providers);
         //setto il block.timestamp!!
         vm.warp(1664009449);
 
@@ -44,11 +36,11 @@ contract TestProject is Test {
 
     }
 
-    function testProject() public { // returns (Shared.InsuranceItem memory) {
+    function testProject() public payable {
 
         //divento provider e aggiungo delle assicurazioni --> 1
         vm.prank(address(prov1));
-        prov1.setInsurance(Shared.Type(2), 1e18);
+        prov1.setInsurance(Shared.Type(2), 3e18);
         // --> 2
         vm.prank(address(prov2));
         prov2.setInsurance(Shared.Type(2), 2e18);
@@ -68,6 +60,7 @@ contract TestProject is Test {
         vm.warp(block.timestamp + (3 hours));
 
         //se si rimuove questa chiamata il cliente NON ha accesso all'assicurazione perché NON è stata acquistata
+        vm.prank(address(secondClient));
         handler.buyProposal(0);
 
         //se si usa secondClient dà errore perché NON è quello giusto
@@ -75,44 +68,5 @@ contract TestProject is Test {
         firstClient.addNewInsurance(0);
 
     }
-
-    /*function testClientRequest() public {
-
-        vm.prank(address(newClient));
-        newClient.requestInsurance(1e18, Shared.Type(2), 3);
-
-        //vm.prank(address(newClient));
-        //console.log(address(newClient).balance);
-
-        //uint[] memory id_prova =  handler.getRequestsByClient(address(newClient));
-
-    }
-
-    function testMakeProposals() public {
-
-        console.log("dentro make proposal:");
-        console.log(block.timestamp);
-
-        vm.prank(address(prov1));
-        prov1.putProposal(0); //la migliore che c'è adesso
-
-        vm.prank(address(prov2));
-        prov2.setInsuranceForRequest(0, Shared.Type(2), 3e18); //ne creo una nuova apposta
-
-    }
-
-    function testBuy() public returns (Shared.InsuranceItem memory) {
-
-        //vm.warp(block.timestamp + (3600*3));
-        console.log("dentro test buy");
-        console.log(block.timestamp);
-
-        Shared.InsuranceItem memory acquisto;
-        
-        acquisto = handler.buyProposal(0);
-
-        return(acquisto);
-
-    }*/
 
 }

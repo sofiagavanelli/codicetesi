@@ -42,7 +42,7 @@ contract Client is Shared {
 
         ///ha il bool di feedback
         bool registration = handler.setClient(name, birth, discount_n);
-        require(registration, "problems with your registration");
+        require(registration, "ci sono stati problemi con la registrazione");
             //console.log("problem with registration");
 
     }
@@ -55,7 +55,7 @@ contract Client is Shared {
 
         nowTime();
 
-        require((msg.sender).balance >= _maxpurchase, "not enough ether");
+        require((msg.sender).balance >= _maxpurchase, "non si possiedono abbastanza fondi");
 
         //uint256 total = _maxpurchase * eth_index;
         sendDeposit(payable(address(handler)), _maxpurchase);
@@ -75,11 +75,9 @@ contract Client is Shared {
 
         //how to gestire num ass?        
         InsuranceItem memory newI;
-
         newI = handler.getProposal(id_R);
-
+        
         spendings[n_ins] = newI;
-
         n_ins = n_ins + 1;
 
     }

@@ -6,11 +6,10 @@ import "./Shared.sol";
 
 contract PurchaseHandler is Shared {
     
-    mapping(uint => address payable) providers; 
-    uint n_providers = 0; 
-
+    //mapping(uint => address payable) providers; 
+    //uint n_providers = 0; 
     //prob non serve più
-    mapping(uint => InsuranceItem) insurances; 
+    //mapping(uint => InsuranceItem) insurances; 
 
     //id delle request
     //tiene conto di quelle GENERALI per cui aumenta linearmente all'aumentare delle richieste - non ottimale prob
@@ -39,7 +38,7 @@ contract PurchaseHandler is Shared {
 
     //dato l'handler si settano i ""partecipanti""
     //ma forse non ha senso settare i providers
-    function setProviders(address payable[] memory _prov) public {
+    /*function setProviders(address payable[] memory _prov) public {
 
         //se si devono settare da zero
         if(n_providers == 0) {
@@ -59,7 +58,7 @@ contract PurchaseHandler is Shared {
             }
         }
 
-    }
+    }*/
 
 
     //funzione che viene chiamata dentro la request insurance del cliente
@@ -119,11 +118,12 @@ contract PurchaseHandler is Shared {
         else {//non c'è già una proposta
 
             //se il prezzo non è inferiore non la controllo nemmeno
-            require(proposals[id_request].price >= _prop.price, "presente assicurazione migliore");
+            require(proposals[id_request].insurance_type == _prop.insurance_type, "tipologia non adeguata");
+            require(_prop.price <= proposals[id_request].price, "presente assicurazione migliore");
             require(proposals[id_request].price != _prop.price, "proposta uguale a quella presente ma tardiva");
 
-            if(proposals[id_request].insurance_type == _prop.insurance_type)
-                proposals[id_request] = _prop; 
+            //if(proposals[id_request].insurance_type == _prop.insurance_type)
+            proposals[id_request] = _prop; 
         }
 
     }
@@ -136,20 +136,27 @@ contract PurchaseHandler is Shared {
         //è effettivamente passato il tempo?
         require(last_access >= indexed_requests[to_buy].scadenza, "non puoi ancora comprare, tempo non scaduto");
 
+        uint256 change;
+        //perché il deposit del client potrebbe essere più del maxp di quella specifica richiesta == potrebbe avere altre pending!!
+        change = indexed_requests[to_buy].maxp - proposals[to_buy].price;
+
+        if((msg.sender != indexed_requests[to_buy].clientWallet) && (msg.sender != proposals[to_buy].provider)) {
+            //1% del prezzo + 1% del risparmio => toglie a entrambi
+            uint256 percentage = ((proposals[to_buy].price / 100) * 1) + ((change / 100) * 1);
+
+            proposals[to_buy].price = proposals[to_buy].price - ((proposals[to_buy].price / 100) * 1);
+            change = change - ((change / 100) * 1);
+
+            sendDeposit(payable(msg.sender), percentage);
+        }
+        
         //si compra l'assicurazione dal provider
         sendDeposit(proposals[to_buy].provider, proposals[to_buy].price);
-
-        uint256 change;
+        
         address payable client = indexed_requests[to_buy].clientWallet;
 
-        //perché il deposit del client potrebbe essere più del maxp di quella specifica richiesta == potrebbe avere altre pending!!
-        change = indexed_requests[to_buy].maxp - proposals[to_buy].price; //deposits[client] 
         //restituire il resto
         sendDeposit(client, change);
-        //change = come ho accesso al cliente? per ottenere il suo deposito?
-
-        //c'è il return di quella comprata: dove metterla?
-        //return proposals[to_buy];
 
         proposals[to_buy].price = 0;
 
@@ -163,7 +170,7 @@ contract PurchaseHandler is Shared {
 
     }
 
-    function getRequestsByClient(address _client) public view returns (uint[] memory) {
+    function getRequestsIDByClient(address _client) public view returns (uint[] memory) {
 
         uint[] memory _activeReq;
 

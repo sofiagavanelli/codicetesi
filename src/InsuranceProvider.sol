@@ -36,11 +36,14 @@ contract InsuranceProvider is Shared {
 
         for(uint i=1; i<=insurance_index; i++) {
             
-            if(insurances[i].insurance_type == to_control.t && insurances[i].price <= winner.price) {
+            if(insurances[i].insurance_type == to_control.t && insurances[i].price <= winner.price && insurances[i].price <= to_control.maxp) { //deve anche costare meno del maxp!!
                 winner = insurances[i];
             }
 
         }
+
+        if(winner.price == insurances[1].price && winner.insurance_type == insurances[1].insurance_type)
+            require(winner.price < to_control.maxp && winner.insurance_type == to_control.t, "nessuna assicurazione inserita rispetta i vincoli");
 
         handler.setProposal(id_R, winner);
 
@@ -59,6 +62,7 @@ contract InsuranceProvider is Shared {
     }
 
     function setInsurance(Type t, uint256 p) public {
+
         //add al mapping
         insurance_index = insurance_index + 1;
         
